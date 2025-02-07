@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import 'react-native-reanimated';
+import App from './(tabs)/App';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -40,8 +41,6 @@ export default function RootLayout() {
   }
 
   return (
-    <View className="flex-1 justify-center items-center">
-          <Text className="text-2xl font-bold">Welcome to Ticketmaster Clone!</Text>
-        </View>
+    <App />
   );
 }
