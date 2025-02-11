@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import HomeScreen from './screen/HomeScreen'; // Adjusted path to HomeScreen
+import React from "react";
+import { SafeAreaView } from "react-native";
+import HomeScreen from "../../app/(tabs)/screen/HomeScreen";
 
 const App = () => {
   return (
+    <SafeAreaView className="flex-1">
       <HomeScreen />
+    </SafeAreaView>
   );
 };
 
