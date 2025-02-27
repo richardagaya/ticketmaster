@@ -1,12 +1,15 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import HomeScreen from "../../app/(tabs)/screen/HomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "./screen/HomeScreen";
 
 const App = () => {
   return (
-    <SafeAreaView className="flex-1">
-      <HomeScreen />
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={{ flex: 1 }}>
+        <HomeScreen />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 

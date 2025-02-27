@@ -1,92 +1,107 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { MagnifyingGlassIcon, CalendarIcon, MapPinIcon } from "react-native-heroicons/outline";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Home: undefined;
+  Events: undefined;
+  Venues: undefined;
+  Artists: undefined;
+  Calendar: undefined;
+  Tickets: undefined;
+  Profile: undefined;
+};
 
 const HomeScreen = () => {
-  return (
-    <View className="flex-1 bg-black px-4">
-      
-      {/* Header */}
-      <View className="flex-row justify-between items-center pt-6 pb-4">
-        <Text className="text-white text-2xl font-bold">ticketmaster</Text>
-        <View className="flex-row items-center">
-          <TouchableOpacity className="mr-3">
-            <Text className="text-xs text-purple-400 bg-white px-2 py-1 rounded-lg">NEW!</Text>
-          </TouchableOpacity>
-          <Image source={{ uri: "https://flagcdn.com/us.svg" }} className="w-6 h-6 rounded-full" />
-        </View>
-      </View>
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-      {/* Location & Date Filters */}
-      <View className="flex-row justify-between items-center mb-4">
-        <TouchableOpacity className="flex-row items-center space-x-1">
-          <MapPinIcon size={20} color="white" />
-          <Text className="text-white text-lg">Los Angeles, ...</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center space-x-1">
-          <CalendarIcon size={20} color="white" />
-          <Text className="text-white text-lg">All Dates</Text>
-        </TouchableOpacity>
+  const handleNavigation = (screen: keyof RootStackParamList) => {
+    navigation.navigate(screen);
+  };
+
+  return (
+    <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 16, paddingVertical: 24 }}>
+      {/* Header */}
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Discover</Text>
       </View>
 
       {/* Search Bar */}
-      <View className="flex-row bg-white p-3 rounded-lg items-center">
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: "#F3F4F6",
+          borderRadius: 24,
+          paddingHorizontal: 16,
+          paddingVertical: 8,
+          marginBottom: 24,
+        }}
+      >
+        <Ionicons name="search" size={20} color="gray" />
         <TextInput
-          placeholder="Search by Artist, Event or Venue"
-          placeholderTextColor="#999"
-          className="flex-1 text-lg text-black"
+          placeholder="Search events, artists, venues"
+          placeholderTextColor="gray"
+          style={{ flex: 1, paddingHorizontal: 12, color: "#4B5563" }}
+          accessibilityLabel="Search events, artists, venues"
         />
-        <MagnifyingGlassIcon size={24} color="black" />
       </View>
 
-      {/* Category Buttons */}
-      <View className="flex-row justify-between mt-4">
-        <TouchableOpacity className="bg-transparent border border-white px-4 py-2 rounded-lg">
-          <Text className="text-white text-lg">Concerts</Text>
+      {/* Buttons */}
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 16 }}>
+        <TouchableOpacity
+          style={{ backgroundColor: "#3B82F6", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 24 }}
+          onPress={() => handleNavigation("Events")}
+        >
+          <Text style={{ color: "white", fontWeight: "600" }}>Events</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="bg-transparent border border-white px-4 py-2 rounded-lg">
-          <Text className="text-white text-lg">Sports</Text>
+        <TouchableOpacity
+          style={{ backgroundColor: "#E5E7EB", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 24 }}
+          onPress={() => handleNavigation("Venues")}
+        >
+          <Text style={{ color: "#374151", fontWeight: "600" }}>Venues</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="bg-transparent border border-white px-4 py-2 rounded-lg">
-          <Text className="text-white text-lg">Arts, Theater & Comedy</Text>
+        <TouchableOpacity
+          style={{ backgroundColor: "#E5E7EB", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 24 }}
+          onPress={() => handleNavigation("Artists")}
+        >
+          <Text style={{ color: "#374151", fontWeight: "600" }}>Artists</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Featured Event */}
-      <View className="mt-6">
-        <Image
-          source={{ uri: "https://source.unsplash.com/featured/?concert" }}
-          className="w-full h-52 rounded-lg"
-        />
-        <View className="absolute bottom-4 left-4">
-          <Text className="text-white text-2xl font-bold">Kendrick Lamar and SZA</Text>
-          <TouchableOpacity className="bg-blue-500 px-4 py-2 mt-2 rounded-lg">
-            <Text className="text-white text-lg">Find Tickets</Text>
-          </TouchableOpacity>
-        </View>
+      {/* Content Placeholder */}
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ color: "#6B7280" }}>Upcoming events will be displayed here</Text>
       </View>
 
       {/* Bottom Navigation */}
-      <View className="absolute bottom-0 left-0 right-0 bg-white flex-row justify-around py-3 border-t border-gray-300">
-        <TouchableOpacity className="items-center">
-          <MagnifyingGlassIcon size={24} color="black" />
-          <Text className="text-black text-sm">Discover</Text>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: "white",
+          paddingVertical: 16,
+          borderTopWidth: 1,
+          borderColor: "#E5E7EB",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <TouchableOpacity onPress={() => handleNavigation("Home")}>
+          <Ionicons name="home" size={24} color="blue" />
         </TouchableOpacity>
-        <TouchableOpacity className="items-center">
-          <Text className="text-black text-lg">❤️</Text>
-          <Text className="text-black text-sm">For You</Text>
+        <TouchableOpacity onPress={() => handleNavigation("Calendar")}>
+          <Ionicons name="calendar" size={24} color="gray" />
         </TouchableOpacity>
-        <TouchableOpacity className="items-center">
-          <Text className="text-black text-lg">📅</Text>
-          <Text className="text-black text-sm">My Events</Text>
+        <TouchableOpacity onPress={() => handleNavigation("Tickets")}>
+          <Ionicons name="ticket" size={24} color="gray" />
         </TouchableOpacity>
-        <TouchableOpacity className="items-center">
-          <Text className="text-black text-lg">💰</Text>
-          <Text className="text-black text-sm">Sell</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="items-center">
-          <Text className="text-black text-lg">👤</Text>
-          <Text className="text-black text-sm">My Account</Text>
+        <TouchableOpacity onPress={() => handleNavigation("Profile")}>
+          <Ionicons name="person" size={24} color="gray" />
         </TouchableOpacity>
       </View>
     </View>

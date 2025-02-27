@@ -6,8 +6,8 @@ import { StatusBar, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import App from './(tabs)/App';
-
 import { useColorScheme } from '@/hooks/useColorScheme';
+import '../global.css';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
