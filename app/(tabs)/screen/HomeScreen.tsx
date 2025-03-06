@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -12,6 +12,7 @@ type RootStackParamList = {
   Calendar: undefined;
   Tickets: undefined;
   Profile: undefined;
+  Sell: undefined;
 };
 
 const HomeScreen = () => {
@@ -25,7 +26,7 @@ const HomeScreen = () => {
     <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 16, paddingVertical: 24 }}>
       {/* Header */}
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Discover</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center", flex: 1 }}>ticketmaster</Text>
       </View>
 
       {/* Search Bar */}
@@ -91,21 +92,44 @@ const HomeScreen = () => {
           justifyContent: "space-around",
         }}
       >
-        <TouchableOpacity onPress={() => handleNavigation("Home")}>
-          <Ionicons name="home" size={24} color="blue" />
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Home")}>
+          <Ionicons name="home" size={24} color="#3B82F6" />
+          <Text style={styles.bottomNavText}>Find Tickets</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation("Calendar")}>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Calendar")}>
           <Ionicons name="calendar" size={24} color="gray" />
+          <Text style={styles.bottomNavText}>Discover</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation("Tickets")}>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Tickets")}>
           <Ionicons name="ticket" size={24} color="gray" />
+          <Text style={styles.bottomNavText}>For You</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation("Profile")}>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Profile")}>
           <Ionicons name="person" size={24} color="gray" />
+          <Text style={styles.bottomNavText}>My Events</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Sell")}>
+          <Ionicons name="cash" size={24} color="gray" />
+          <Text style={styles.bottomNavText}>Sell</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => handleNavigation("Profile")}>
+          <Ionicons name="person" size={24} color="gray" />
+          <Text style={styles.bottomNavText}>My Account</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomNavItem: {
+    alignItems: "center",
+  },
+  bottomNavText: {
+    fontSize: 12,
+    color: "#4B5563",
+    marginTop: 4,
+  },
+});
 
 export default HomeScreen;
