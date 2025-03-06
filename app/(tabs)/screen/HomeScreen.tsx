@@ -31,19 +31,27 @@ const HomeScreen = () => {
   return (
     <View className="flex-1 bg-white px-4 py-6">
       {/* Header */}
-      <View className="flex-row justify-between items-center mb-4">
-        <Text className="text-2xl font-bold">Discover</Text>
+      <View className="flex-row justify-between items-center mb-4 px-4">
+      <Text className="text-2xl font-bold ml-28">ticketmaster</Text>
+      <View className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
+        <Image
+          source={{ uri: "https://flagcdn.com/w40/us.png" }}
+          className="w-full h-full"
+        />
       </View>
+    </View>
 
       {/* Search Bar */}
       <View className="flex-row items-center bg-gray-100 rounded-full px-4 py-2 mb-6">
-        <Ionicons name="search" size={20} color="gray" />
+        
         <TextInput
           placeholder="Search by Artist, Event or Venue"
           placeholderTextColor="gray"
           className="flex-1 px-3 text-gray-700"
           accessibilityLabel="Search by Artist, Event or Venue"
+          
         />
+        <Ionicons name="search" size={20} color="gray" />
       </View>
 
       {/* Featured Event */}
