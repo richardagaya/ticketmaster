@@ -17,6 +17,7 @@ type RootStackParamList = {
   Concerts: undefined;
   Sports: undefined;
   "Arts & Theater": undefined;
+  accscreen: undefined; // Added accscreen
 };
 
 const categories = ["Concerts", "Sports", "Arts, Theater & Comedy"];
@@ -161,7 +162,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="items-center"
-          onPress={() => handleNavigation("Profile")}
+          onPress={() => handleNavigation("accscreen")} // Changed from "Profile" to "accscreen"
           accessibilityLabel="My Account"
           accessibilityRole="button"
         >
