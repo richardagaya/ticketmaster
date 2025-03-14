@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions
+  View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions, StyleSheet
 } from "react-native";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -17,38 +17,7 @@ type RootStackParamList = {
   Concerts: undefined;
   Sports: undefined;
   "Arts & Theater": undefined;
-  accscreen: undefined; // Added accscreen
-};
-
-const categories = ["Concerts", "Sports", "Arts, Theater & Comedy"];
-
-// Category Navigation Component
-const CategoryNav = () => {
-  const [selected, setSelected] = useState<string | null>(null);
-
-  return (
-    <View className="flex-row justify-center gap-3 bg-black py-4">
-      {categories.map((category) => (
-        <TouchableOpacity
-          key={category}
-          onPress={() => setSelected(category)}
-          className={`px-4 py-2 rounded-md border ${
-            selected === category ? "bg-white border-white" : "border-gray-500"
-          }`}
-          accessibilityLabel={category}
-          accessibilityRole="button"
-        >
-          <Text
-            className={`${
-              selected === category ? "text-black font-semibold" : "text-white font-medium"
-            }`}
-          >
-            {category}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
+  accscreen: undefined;
 };
 
 const screenWidth = Dimensions.get("window").width;
@@ -61,117 +30,334 @@ const HomeScreen = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* Header */}
-        <View className="flex-row justify-between items-center mb-4 px-4 pt-6">
-          <Text className="text-2xl font-bold flex-1 text-center">ticketmaster</Text>
-          <View className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
-            <Image
-              source={{ uri: "https://flagcdn.com/w40/us.png" }}
-              className="w-full h-full"
-              defaultSource={require("../../../assets/images/banner.jpg")}
-            />
+    <View style={styles.container}>
+      <ScrollView>
+        {/* Header with Logo and Flag */}
+        <View className="flex-row items-center justify-between px-4 pt-6 pb-4">
+          <Text className="text-black text-3xl font-bold">ticketmaster</Text>
+          <View className="flex-row items-center">
+            <View className="bg-white rounded-lg mr-2 overflow-hidden">
+            </View>
+            <View className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
+              <Image
+                source={{ uri: "https://flagcdn.com/w40/us.png" }}
+                className="w-full h-full"
+              />
+            </View>
           </View>
         </View>
 
         {/* Location and Date Selection */}
-        <View className="px-4 mb-3">
-          <View className="flex-row justify-between items-center pb-2 border-b border-gray-300">
-            <View className="flex-row items-center">
-              <Ionicons name="navigate-outline" size={24} color="blue" />
-              <Text className="text-black ml-2 text-base">NYC</Text>
-            </View>
-            <View className="h-5 w-px bg-gray-300 mx-2" />
-            <View className="flex-row items-center">
-              <Ionicons name="calendar-outline" size={24} color="blue" />
-              <Text className="text-black ml-2 text-base">All Dates</Text>
-            </View>
-            <Feather name="chevron-right" size={20} color="#1E90FF" />
+        <View style={styles.locationDateContainer}>
+          <View style={styles.locationWrapper}>
+            <MaterialCommunityIcons name="navigation-variant-outline" size={20} color="#3B82F6" />
+            <Text style={styles.locationText}>Los Angeles, CA</Text>
+            <TouchableOpacity>
+              <MaterialCommunityIcons name="close-circle" size={16} color="gray" />
+            </TouchableOpacity>
           </View>
+          
+          <View style={styles.divider} />
+          
+          <View style={styles.dateWrapper}>
+            <MaterialCommunityIcons name="calendar-blank-outline" size={20} color="#3B82F6" />
+            <Text style={styles.dateText}>All Dates</Text>
+          </View>
+          
+          <MaterialCommunityIcons name="chevron-right" size={20} color="black" />
         </View>
 
         {/* Search Bar */}
-        <View className="px-4 mb-3">
-          <View className="flex-row items-center bg-white rounded-lg shadow-sm border border-gray-300 p-2">
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
             <TextInput
-              className="flex-1 ml-2 text-gray-500"
-              placeholder="Search for artists, venues, and events"
-              placeholderTextColor="#808080"
+              style={styles.searchInput}
+              placeholder="Search by Artist, Event or Venue"
+              placeholderTextColor="#6B7280"
             />
-            <Feather name="search" size={20} color="#808080" />
+            <MaterialCommunityIcons name="magnify" size={22} color="#3B82F6" />
           </View>
         </View>
 
         {/* Category Navigation */}
-        <CategoryNav />
+        <View style={styles.categoryContainer}>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryText}>Concerts</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryText}>Sports</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={[styles.categoryButton, styles.lastCategoryButton]}>
+            <Text style={styles.categoryText}>Arts, Theater & Com</Text>
+          </TouchableOpacity>
+        </View>
 
-        {/* Featured Event */}
-        <View className="w-full">
+        {/* Featured Event - Kendrick Lamar and SZA */}
+        <View style={styles.featuredEventContainer}>
           <ImageBackground
-            source={require("../../../assets/images/banner.jpg")}
+            source={require("../../../assets/images/sza.png")}
+            defaultSource={require("../../../assets/images/sza.png")}
             resizeMode="cover"
-            style={{ width: screenWidth, height: 250 }}
-            className="justify-end p-6"
+            style={styles.featuredEventImage}
           >
-            <Text className="text-white text-2xl font-bold">Kendrick Lamar and SZA</Text>
-            <TouchableOpacity className="bg-blue-600 py-3 px-6 rounded-lg mt-4 w-40">
-              <Text className="text-white font-semibold text-center">Find Tickets</Text>
-            </TouchableOpacity>
+            <View style={styles.featuredEventTextContainer}>
+              <Text style={styles.featuredEventTitle}>Kendrick Lamar and SZA</Text>
+              <TouchableOpacity style={styles.findTicketsButton}>
+                <Text style={styles.findTicketsText}>Find Tickets</Text>
+              </TouchableOpacity>
+            </View>
           </ImageBackground>
+        </View>
+        
+        {/* Second Featured Event - Person with Hat */}
+        <View style={styles.secondEventContainer}>
+          <Image
+            source={require("../../../assets/images/blake.jpeg")}
+            defaultSource={require("../../../assets/images/blake.jpeg")}
+            resizeMode="cover"
+            style={styles.secondEventImage}
+          />
         </View>
       </ScrollView>
 
       {/* Bottom Navigation */}
-      <View className="absolute bottom-0 left-0 right-0 bg-white py-4 border-t border-gray-200 flex-row justify-around items-center">
-        <TouchableOpacity
-          className="items-center"
-          onPress={() => handleNavigation("Home")}
-          accessibilityLabel="Discover"
-          accessibilityRole="button"
-        >
-          <Ionicons name="search" size={24} color="blue" />
-          <Text className="text-xs text-gray-500 mt-1">Discover</Text>
+      <View style={styles.bottomNavigation}>
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialCommunityIcons name="magnify" size={22} color="#3B82F6" />
+          <Text style={styles.navItemTextActive}>Discover</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          className="items-center"
-          onPress={() => handleNavigation("Calendar")}
-          accessibilityLabel="For You"
-          accessibilityRole="button"
-        >
-          <Ionicons name="heart" size={24} color="gray" />
-          <Text className="text-xs text-gray-500 mt-1">For You</Text>
+        
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialCommunityIcons name="heart-outline" size={22} color="gray" />
+          <Text style={styles.navItemText}>For You</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          className="items-center"
-          onPress={() => handleNavigation("Tickets")}
-          accessibilityLabel="My Events"
-          accessibilityRole="button"
-        >
-          <Ionicons name="ticket" size={24} color="gray" />
-          <Text className="text-xs text-gray-500 mt-1">My Events</Text>
+        
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialCommunityIcons name="ticket-outline" size={22} color="gray" />
+          <Text style={styles.navItemText}>My Events</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          className="items-center"
-          onPress={() => handleNavigation("Tickets")}
-          accessibilityLabel="Sell"
-          accessibilityRole="button"
-        >
-          <Ionicons name="cash" size={24} color="gray" />
-          <Text className="text-xs text-gray-500 mt-1">Sell</Text>
+        
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialCommunityIcons name="tag-outline" size={22} color="gray" />
+          <Text style={styles.navItemText}>Sell</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          className="items-center"
-          onPress={() => handleNavigation("accscreen")} // Changed from "Profile" to "accscreen"
-          accessibilityLabel="My Account"
-          accessibilityRole="button"
+        
+        <TouchableOpacity 
+          style={styles.navItem}
+          onPress={() => handleNavigation("accscreen")}
         >
-          <Ionicons name="person" size={24} color="gray" />
-          <Text className="text-xs text-gray-500 mt-1">My Account</Text>
+          <MaterialCommunityIcons name="account-circle-outline" size={22} color="gray" />
+          <Text style={styles.navItemText}>My Account</Text>
         </TouchableOpacity>
       </View>
+      
+      {/* Home Indicator Line */}
+      <View style={styles.homeIndicator} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 10,
+  },
+  logoText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  headerRight: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  newBadge: {
+    backgroundColor: "#8B5CF6",
+    borderRadius: 8,
+    marginRight: 8,
+    overflow: "hidden",
+  },
+  newBadgeText: {
+    color: "#fff",
+    fontWeight: "bold",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    fontSize: 12,
+  },
+  flagContainer: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  flagEmoji: {
+    fontSize: 14,
+  },
+  locationDateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  locationWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  locationText: {
+    fontSize: 14,
+    color: "#000",
+    marginLeft: 6,
+    marginRight: 4,
+  },
+  divider: {
+    height: 16,
+    width: 1,
+    backgroundColor: "#E5E7EB",
+    marginHorizontal: 12,
+  },
+  dateWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  dateText: {
+    fontSize: 14,
+    color: "#000",
+    marginLeft: 6,
+  },
+  searchContainer: {
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F3F4F6",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    color: "#4B5563",
+  },
+  categoryContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  categoryButton: {
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginRight: 8,
+  },
+  lastCategoryButton: {
+    marginRight: 0,
+  },
+  categoryText: {
+    fontSize: 14,
+    color: "#000",
+  },
+  featuredEventContainer: {
+    width: "100%",
+  },
+  featuredEventImage: {
+    width: screenWidth,
+    height: 340,
+  },
+  featuredEventTextContainer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+  },
+  featuredEventTitle: {
+    color: "#fff",
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  findTicketsButton: {
+    backgroundColor: "#2563EB",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    width: 160,
+    marginBottom: 16,
+  },
+  findTicketsText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  secondEventContainer: {
+    marginHorizontal: 16,
+    marginVertical: 16,
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  secondEventImage: {
+    width: screenWidth - 32,
+    height: 200,
+    borderRadius: 8,
+  },
+  bottomNavigation: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#fff",
+    paddingVertical: 8,
+    borderTopWidth: 1,
+    borderTopColor: "#E5E7EB",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  navItem: {
+    alignItems: "center",
+  },
+  navItemText: {
+    fontSize: 12,
+    color: "#6B7280",
+    marginTop: 4,
+  },
+  navItemTextActive: {
+    fontSize: 12,
+    color: "#3B82F6",
+    marginTop: 4,
+  },
+  homeIndicator: {
+    height: 4,
+    width: 100,
+    backgroundColor: "#9CA3AF",
+    borderRadius: 2,
+    alignSelf: "center",
+    marginBottom: 6,
+  },
+});
 
 export default HomeScreen;

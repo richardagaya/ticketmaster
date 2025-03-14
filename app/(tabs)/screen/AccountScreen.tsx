@@ -1,126 +1,212 @@
 import React, { useState } from "react";
 import { View, Text, Switch, TouchableOpacity, ScrollView, Image } from "react-native";
-import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const AccountScreen = () => {
-  const [locationBasedContent, setLocationBasedContent] = useState(true);
-  const [receiveNotifications, setReceiveNotifications] = useState(true);
-
-  const handleSignOut = () => {
-    console.log("User signed out");
-  };
+  const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [locationBasedContent, setLocationBasedContent] = useState(false);
 
   return (
     <ScrollView className="flex-1 bg-white">
-      {/* Header */}
-      <View className="p-5 bg-gray-900">
-        <Text className="flex justify-center items-center text-xl font-bold text-white">My Account</Text>
+      {/* Header with Black Background */}
+      <View className="bg-black w-full">
+        <Text className="text-2xl font-medium text-white text-center py-6">My Account</Text>
       </View>
 
-      {/* User Info */}
-      <View className="p-5 flex-row items-center bg-gray-800">
-        <View>
-          <Text className="text-lg font-bold text-white">Mike</Text>
-          <Text className="text-gray-400">richardagaya100@gmail.com</Text>
-        </View>
+      {/* User Information Section */}
+      <View className="p-6 bg-black">
+        <Text className="text-4xl text-white font-medium mb-2">Mike</Text>
+        <Text className="text-xl text-gray-400">showalter58@gmail.com</Text>
       </View>
 
-      {/* Notifications */}
-      <View className="p-5">
-        <Text className="text-lg text-gray-700 mb-3">Notifications</Text>
+      {/* Notifications Section */}
+      <View className="px-5 pt-8 pb-2">
+        <Text className="text-2xl font-medium text-black mb-4">Notifications</Text>
 
         {/* My Notifications */}
-        <TouchableOpacity className="flex-row justify-between items-center py-2">
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
           <View className="flex-row items-center">
-            <Ionicons name="mail-outline" size={18} color="#4a90e2" />
-            <Text className="text-gray-700 ml-3">My Notifications</Text>
+            <MaterialCommunityIcons name="email-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">My Notifications</Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color="#4a90e2" />
+          <Ionicons name="chevron-forward" size={22} color="black" />
         </TouchableOpacity>
 
         {/* Receive Notifications */}
-        <View className="flex-row justify-between items-center py-2">
+        <View className="flex-row justify-between items-center py-3 border-b border-gray-300">
           <View className="flex-row items-center">
-            <Ionicons name="notifications-outline" size={18} color="#4a90e2" />
-            <Text className="text-gray-700 ml-3">Receive Notifications?</Text>
+            <MaterialCommunityIcons name="bell-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Receive Notifications?</Text>
           </View>
           <Switch
             value={receiveNotifications}
             onValueChange={setReceiveNotifications}
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={receiveNotifications ? "#f5dd4b" : "#f4f3f4"}
+            trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
+            thumbColor={receiveNotifications ? "#4299e1" : "#fff"}
+            ios_backgroundColor="#f4f3f4"
           />
         </View>
       </View>
 
       {/* Location Settings */}
-      <View className="p-5">
-        <Text className="text-lg text-gray-700 mb-3">Location Settings</Text>
-        <TouchableOpacity className="flex-row justify-between items-center py-2">
+      <View className="px-5 pt-6 pb-2">
+        <View className="flex-row items-center mb-4">
+          <Text className="text-2xl font-medium text-black">Location Settings</Text>
+          <View className="ml-2 bg-blue-600 rounded-full px-3 py-1">
+            <Text className="text-white font-bold text-xs">NEW!</Text>
+          </View>
+        </View>
+
+        {/* My Location */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
           <View className="flex-row items-center">
-            <Ionicons name="location-outline" size={18} color="#4a90e2" />
-            <Text className="text-gray-700 ml-3">My Location</Text>
+            <MaterialCommunityIcons name="map-marker-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">My Location</Text>
           </View>
           <View className="flex-row items-center">
-            <Text className="text-blue-400 mr-2">Chicago</Text>
-            <Ionicons name="chevron-forward" size={18} color="#4a90e2" />
+            <Text className="text-lg text-blue-600 mr-2">Los Angeles, CA</Text>
+            <MaterialCommunityIcons name="pencil-outline" size={22} color="blue" className="ml-1" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row justify-between items-center py-2">
+
+        {/* My Country */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
           <View className="flex-row items-center">
-            <View className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
+            <View className="w-7 h-7 rounded-full overflow-hidden border border-gray-300">
               <Image 
                 source={{ uri: "https://flagcdn.com/w40/us.png" }} 
                 style={{ width: "100%", height: "100%" }} 
                 resizeMode="cover"
               />
             </View>
-            <Text className="text-gray-700 ml-3">My Country</Text>
+            <Text className="text-lg text-black ml-4">My Country</Text>
           </View>
           <View className="flex-row items-center">
-            <Text className="text-blue-400 mr-2">United States</Text>
-            <Ionicons name="chevron-forward" size={18} color="#4a90e2" />
+            <Text className="text-lg text-blue-600 mr-2">United States</Text>
+            <MaterialCommunityIcons name="pencil-outline" size={22} color="blue" className="ml-1" />
           </View>
         </TouchableOpacity>
-        <View className="flex-row justify-between items-center py-2">
+
+        {/* Location Based Content */}
+        <View className="flex-row justify-between items-center py-3 border-b border-gray-300">
           <View className="flex-row items-center">
-            <Ionicons name="navigate-outline" size={18} color="#4a90e2" />
-            <Text className="text-gray-700 ml-3">Location Based Content</Text>
+            <MaterialCommunityIcons name="navigation-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Location Based Content</Text>
           </View>
           <Switch
             value={locationBasedContent}
             onValueChange={setLocationBasedContent}
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={locationBasedContent ? "#f5dd4b" : "#f4f3f4"}
+            trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
+            thumbColor={locationBasedContent ? "#4299e1" : "#fff"}
+            ios_backgroundColor="#f4f3f4"
           />
         </View>
       </View>
 
       {/* Preferences */}
-      <View className="p-5">
-        <Text className="text-lg text-gray-700 mb-3">Preferences</Text>
-        <TouchableOpacity className="flex-row items-center py-2">
-          <FontAwesome5 name="heart" size={18} color="#4a90e2" />
-          <Text className="text-gray-700 ml-3">My Favorites</Text>
+      <View className="px-5 pt-6 pb-2">
+        <Text className="text-2xl font-medium text-black mb-4">Preferences</Text>
+
+        {/* My Favorites */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
+          <View className="flex-row items-center">
+            <MaterialCommunityIcons name="heart-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">My Favorites</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center py-2">
-          <MaterialIcons name="payment" size={18} color="#4a90e2" />
-          <Text className="text-gray-700 ml-3">Saved Payment Methods</Text>
+
+        {/* Saved Payment Methods */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3 border-b border-gray-300">
+          <View className="flex-row items-center">
+            <MaterialCommunityIcons name="credit-card-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Saved Payment Methods</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
         </TouchableOpacity>
       </View>
 
-      {/* Sign Out */}
-      <View className="p-5">
-        <TouchableOpacity
-          className="flex-row items-center"
-          onPress={handleSignOut}
-          accessibilityLabel="Sign Out"
-          accessibilityRole="button"
-        >
-          <Ionicons name="log-out-outline" size={20} color="red" />
-          <Text className="text-red-500 ml-3">Sign Out</Text>
+      {/* Change App Icon - Fixed positioning */}
+      <View className="px-5 pt-6 pb-2">
+        <TouchableOpacity className="flex-row justify-between items-center py-3 border-b border-gray-300">
+          <View className="flex-row items-center">
+            <Text className="text-3xl text-black ml-1 mr-2">T</Text>
+            <Text className="text-lg text-black ml-2">Change App Icon</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
         </TouchableOpacity>
       </View>
+
+      {/* Help & Guidance - Fixed positioning */}
+      <View className="px-5 pt-6 pb-2 bg-white">
+        <Text className="text-2xl font-medium text-black mb-4">Help & Guidance</Text>
+
+        {/* Need Help? */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
+          <View className="flex-row items-center">
+            <MaterialCommunityIcons name="help-circle-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Need Help?</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
+        </TouchableOpacity>
+
+        {/* Give Us Feedback */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3">
+          <View className="flex-row items-center">
+            <MaterialCommunityIcons name="pencil-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Give Us Feedback</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
+        </TouchableOpacity>
+
+        {/* Legal */}
+        <TouchableOpacity className="flex-row justify-between items-center py-3 border-b border-gray-300">
+          <View className="flex-row items-center">
+            <MaterialCommunityIcons name="file-document-outline" size={28} color="black" />
+            <Text className="text-lg text-black ml-4">Legal</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={22} color="black" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Sign Out Button - Fixed positioning */}
+      <TouchableOpacity className="mx-5 my-6">
+        <View className="flex-row items-center">
+          <MaterialCommunityIcons name="logout" size={28} color="red" />
+          <Text className="text-lg text-red-600 ml-4">Sign Out</Text>
+        </View>
+      </TouchableOpacity>
+
+      {/* Tab Bar */}
+      <View className="flex-row justify-around items-center py-3 bg-white border-t border-gray-200 mt-10">
+        <TouchableOpacity className="items-center">
+          <MaterialCommunityIcons name="magnify" size={24} color="gray" />
+          <Text className="text-xs text-gray-500 mt-1">Discover</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity className="items-center">
+          <MaterialCommunityIcons name="heart" size={24} color="gray" />
+          <Text className="text-xs text-gray-500 mt-1">For You</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity className="items-center">
+          <MaterialCommunityIcons name="ticket-outline" size={24} color="gray" />
+          <Text className="text-xs text-gray-500 mt-1">My Events</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity className="items-center">
+          <MaterialCommunityIcons name="tag-outline" size={24} color="gray" />
+          <Text className="text-xs text-gray-500 mt-1">Sell</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity className="items-center">
+          <MaterialCommunityIcons name="account-circle" size={24} color="blue" />
+          <Text className="text-xs text-blue-600 mt-1">My Account</Text>
+        </TouchableOpacity>
+      </View>
+      
+      {/* Home Indicator Line */}
+      <View className="h-1 w-32 bg-black mx-auto my-2 rounded-full" />
     </ScrollView>
   );
 };
