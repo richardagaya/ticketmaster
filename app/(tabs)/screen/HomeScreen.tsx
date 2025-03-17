@@ -134,7 +134,10 @@ const HomeScreen = () => {
           <Text style={styles.navItemText}>For You</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity 
+          style={styles.navItem}
+          onPress={() => handleNavigation("Events")}
+        >
           <MaterialCommunityIcons name="ticket-outline" size={22} color="gray" />
           <Text style={styles.navItemText}>My Events</Text>
         </TouchableOpacity>
