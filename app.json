@@ -14,13 +14,15 @@
       "backgroundColor": "#026CDF"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.ticketmaster"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#026CDF"
-      }
+      },
+      "package": "com.yourcompany.ticketmaster"
     },
     "web": {
       "bundler": "metro",
