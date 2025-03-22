@@ -19,6 +19,9 @@ export interface Event {
   price: string;
   section: string;
   description: string;
+  row?: string;
+  seat?: string;
+  sec?: string;
 }
 
 interface EventCardProps {
@@ -26,19 +29,27 @@ interface EventCardProps {
   onPress: (event: Event) => void;
 }
 
+// Custom Taylor Swift Eras tour image
+const jhopeImage = require("../assets/images/jhope.jpg");
+
 const EventCard: React.FC<EventCardProps> = ({ event, onPress }) => {
+  // Check if this is the Taylor Swift event
+  const isTaylorSwift = event.title.includes("Jhope");
+  
   return (
     <TouchableOpacity
       style={styles.eventCard}
       onPress={() => onPress(event)}
     >
-      <Image source={event.image} style={styles.eventImage} />
-      <View style={styles.eventInfo}>
-        <Text style={styles.eventTitle}>{event.title}</Text>
-        <Text style={styles.eventDate}>{event.date} • {event.venue}</Text>
-        <View style={styles.ticketInfo}>
-          <MaterialCommunityIcons name="ticket-outline" size={16} color="#666" />
-          <Text style={styles.ticketCount}>{event.tickets} tickets</Text>
+      <Image source={jhopeImage} style={styles.eventImage} />
+      <View style={styles.eventContent}>
+        <View style={styles.eventInfo}>
+          <Text style={styles.eventTitle}>{event.title}</Text>
+          <Text style={styles.eventDate}>{event.date} • {event.venue}</Text>
+          <View style={styles.ticketInfo}>
+            <MaterialCommunityIcons name="ticket" size={16} color="#fff" />
+            <Text style={styles.ticketCount}>{event.tickets} Tickets</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -47,33 +58,39 @@ const EventCard: React.FC<EventCardProps> = ({ event, onPress }) => {
 
 const styles = StyleSheet.create({
   eventCard: {
-    marginHorizontal: 16,
-    marginVertical: 10,
-    borderRadius: 12,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginHorizontal: 0,
+    marginVertical: 0,
+    height: 240,
+    backgroundColor: "#000",
     overflow: "hidden",
+    position: "relative",
   },
   eventImage: {
     width: "100%",
-    height: 200,
+    height: "100%",
     resizeMode: "cover",
+    opacity: 0.8,
+  },
+  eventContent: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    backgroundColor: "rgba(0,0,0,0.2)",
   },
   eventInfo: {
-    padding: 16,
+    width: "100%",
   },
   eventTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
+    color: "#fff",
     marginBottom: 4,
   },
   eventDate: {
     fontSize: 14,
-    color: "#666",
+    color: "#fff",
     marginBottom: 8,
   },
   ticketInfo: {
@@ -82,7 +99,7 @@ const styles = StyleSheet.create({
   },
   ticketCount: {
     fontSize: 14,
-    color: "#666",
+    color: "#fff",
     marginLeft: 4,
   },
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions, StyleSheet
+  View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions, StyleSheet, StatusBar, SafeAreaView
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -30,18 +30,20 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <ScrollView style={styles.scrollContainer}>
         {/* Header with Logo and Flag */}
-        <View className="flex-row items-center justify-between px-4 pt-6 pb-4">
-          <Text className="text-black text-3xl font-bold">ticketmaster</Text>
-          <View className="flex-row items-center">
-            <View className="bg-white rounded-lg mr-2 overflow-hidden">
+        <View style={styles.header}>
+          <Text style={styles.logoText}>ticketmaster</Text>
+          <View style={styles.headerRight}>
+            <View style={styles.newBadge}>
+              <Text style={styles.newBadgeText}>NEW!</Text>
             </View>
-            <View className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
+            <View style={styles.flagContainer}>
               <Image
                 source={{ uri: "https://flagcdn.com/w40/us.png" }}
-                className="w-full h-full"
+                style={{ width: 32, height: 32 }}
               />
             </View>
           </View>
@@ -64,7 +66,7 @@ const HomeScreen = () => {
             <Text style={styles.dateText}>All Dates</Text>
           </View>
           
-          <MaterialCommunityIcons name="chevron-right" size={20} color="black" />
+          <MaterialCommunityIcons name="chevron-right" size={20} color="white" />
         </View>
 
         {/* Search Bar */}
@@ -75,7 +77,7 @@ const HomeScreen = () => {
               placeholder="Search by Artist, Event or Venue"
               placeholderTextColor="#6B7280"
             />
-            <MaterialCommunityIcons name="magnify" size={22} color="#3B82F6" />
+            <MaterialCommunityIcons name="magnify" size={24} color="#3B82F6" />
           </View>
         </View>
 
@@ -120,65 +122,74 @@ const HomeScreen = () => {
             style={styles.secondEventImage}
           />
         </View>
+        
+        {/* Add some bottom padding for scrolling beyond the bottom nav */}
+        <View style={{ height: 100 }} />
       </ScrollView>
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNavigation}>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="magnify" size={22} color="#3B82F6" />
-          <Text style={styles.navItemTextActive}>Discover</Text>
-        </TouchableOpacity>
+      <View style={styles.bottomNavContainer}>
+        <View style={styles.bottomNavigation}>
+          <TouchableOpacity style={styles.navItem}>
+            <MaterialCommunityIcons name="magnify" size={24} color="#3B82F6" />
+            <Text style={styles.navItemTextActive}>Discover</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.navItem}>
+            <MaterialCommunityIcons name="heart-outline" size={24} color="#9CA3AF" />
+            <Text style={styles.navItemText}>For You</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.navItem}
+            onPress={() => handleNavigation("Events")}
+          >
+            <MaterialCommunityIcons name="ticket-outline" size={24} color="#9CA3AF" />
+            <Text style={styles.navItemText}>My Events</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.navItem}>
+            <MaterialCommunityIcons name="tag-outline" size={24} color="#9CA3AF" />
+            <Text style={styles.navItemText}>Sell</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.navItem}
+            onPress={() => handleNavigation("accscreen")}
+          >
+            <MaterialCommunityIcons name="account-circle-outline" size={24} color="#9CA3AF" />
+            <Text style={styles.navItemText}>My Account</Text>
+          </TouchableOpacity>
+        </View>
         
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="heart-outline" size={22} color="gray" />
-          <Text style={styles.navItemText}>For You</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => handleNavigation("Events")}
-        >
-          <MaterialCommunityIcons name="ticket-outline" size={22} color="gray" />
-          <Text style={styles.navItemText}>My Events</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="tag-outline" size={22} color="gray" />
-          <Text style={styles.navItemText}>Sell</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => handleNavigation("accscreen")}
-        >
-          <MaterialCommunityIcons name="account-circle-outline" size={22} color="gray" />
-          <Text style={styles.navItemText}>My Account</Text>
-        </TouchableOpacity>
+        {/* Home Indicator Line */}
+        <View style={styles.homeIndicator} />
       </View>
-      
-      {/* Home Indicator Line */}
-      <View style={styles.homeIndicator} />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
+  },
+  scrollContainer: {
+    flex: 1,
+    backgroundColor: "#000",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingTop: 14,
     paddingBottom: 10,
   },
   logoText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    color: "#000",
+    color: "#fff",
   },
   headerRight: {
     flexDirection: "row",
@@ -186,35 +197,29 @@ const styles = StyleSheet.create({
   },
   newBadge: {
     backgroundColor: "#8B5CF6",
-    borderRadius: 8,
+    borderRadius: 20,
     marginRight: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
     overflow: "hidden",
   },
   newBadgeText: {
     color: "#fff",
     fontWeight: "bold",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    fontSize: 12,
+    fontSize: 14,
   },
   flagContainer: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  flagEmoji: {
-    fontSize: 14,
   },
   locationDateContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginVertical: 12,
+    backgroundColor: "#000",
   },
   locationWrapper: {
     flexDirection: "row",
@@ -222,15 +227,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   locationText: {
-    fontSize: 14,
-    color: "#000",
+    fontSize: 16,
+    color: "#fff",
     marginLeft: 6,
     marginRight: 4,
   },
   divider: {
-    height: 16,
+    height: 20,
     width: 1,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#333",
     marginHorizontal: 12,
   },
   dateWrapper: {
@@ -239,8 +244,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dateText: {
-    fontSize: 14,
-    color: "#000",
+    fontSize: 16,
+    color: "#fff",
     marginLeft: 6,
   },
   searchContainer: {
@@ -250,16 +255,14 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F3F4F6",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
+    backgroundColor: "#fff",
+    borderRadius: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   searchInput: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 16,
     color: "#4B5563",
   },
   categoryContainer: {
@@ -269,73 +272,74 @@ const styles = StyleSheet.create({
   },
   categoryButton: {
     borderWidth: 1,
-    borderColor: "#E5E7EB",
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginRight: 8,
+    borderColor: "#333",
+    borderRadius: 24,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginRight: 10,
+    backgroundColor: "#222",
   },
   lastCategoryButton: {
     marginRight: 0,
   },
   categoryText: {
     fontSize: 14,
-    color: "#000",
+    color: "#fff",
+    fontWeight: "500",
   },
   featuredEventContainer: {
     width: "100%",
   },
   featuredEventImage: {
     width: screenWidth,
-    height: 340,
+    height: 380,
   },
   featuredEventTextContainer: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 16,
+    padding: 24,
   },
   featuredEventTitle: {
     color: "#fff",
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 16,
   },
   findTicketsButton: {
     backgroundColor: "#2563EB",
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
-    width: 160,
+    width: 180,
     marginBottom: 16,
   },
   findTicketsText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
   },
   secondEventContainer: {
-    marginHorizontal: 16,
-    marginVertical: 16,
-    borderRadius: 8,
-    overflow: "hidden",
+    marginHorizontal: 0,
+    marginVertical: 0,
   },
   secondEventImage: {
-    width: screenWidth - 32,
-    height: 200,
-    borderRadius: 8,
+    width: screenWidth,
+    height: 220,
   },
-  bottomNavigation: {
-    position: "absolute",
+  bottomNavContainer: {
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  bottomNavigation: {
+    height: 70,
     backgroundColor: "#fff",
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: "#E5E7EB",
+    paddingVertical: 12,
+    borderTopWidth: 0,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -351,15 +355,16 @@ const styles = StyleSheet.create({
   navItemTextActive: {
     fontSize: 12,
     color: "#3B82F6",
+    fontWeight: "500",
     marginTop: 4,
   },
   homeIndicator: {
-    height: 4,
-    width: 100,
-    backgroundColor: "#9CA3AF",
-    borderRadius: 2,
+    height: 5,
+    width: 120,
+    backgroundColor: "#555",
+    borderRadius: 2.5,
     alignSelf: "center",
-    marginBottom: 6,
+    marginVertical: 8,
   },
 });
 

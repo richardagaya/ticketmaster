@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue background -->
+  <rect width="1024" height="1024" fill="#026CDF"/>
+  
+  <!-- Ticketmaster logo text -->
+  <text x="512" y="512" font-family="Arial" font-size="100" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">ticketmaster®</text>
+</svg>

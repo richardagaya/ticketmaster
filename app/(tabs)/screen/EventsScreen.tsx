@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -21,19 +22,26 @@ type RootStackParamList = {
   accscreen: undefined;
 };
 
-// Sample event data
-const events: Event[] = [
+// Sample event data - Upcoming events
+const upcomingEvents: Event[] = [
   {
     id: 1,
-    title: "Taylor Swift | The Eras Tour",
-    date: "Fri, Oct 18, 7:00pm",
-    venue: "Hard Rock Stadium",
-    image: require("../../../assets/images/sza.png"),
+    title: "j-hope Tour | 'HOPE ON THE STAGE' in CHICAGO",
+    date: "Mon, MAR 17, 8:00pm",
+    venue: "Allstate Arena",
+    image: require("../../../assets/images/jhope.jpg"),
     tickets: 2,
     price: "$350",
     section: "Floor B, Row 10",
     description: "Experience Taylor Swift's record-breaking Eras Tour, a journey through all of Taylor's musical eras.",
+    sec: "144",
+    row: "27",
+    seat: "7"
   },
+];
+
+// Sample event data - Past events
+const pastEvents: Event[] = [
   {
     id: 2,
     title: "Kendrick Lamar & SZA",
@@ -56,22 +64,12 @@ const events: Event[] = [
     section: "Loge 5, Row 2",
     description: "Country music superstar Blake Shelton brings his Back to the Honky Tonk Tour to town.",
   },
-  {
-    id: 4,
-    title: "Doja Cat World Tour",
-    date: "Wed, Sep 20, 7:30pm",
-    venue: "Madison Square Garden",
-    image: require("../../../assets/images/doja.jpg"),
-    tickets: 2,
-    price: "$195",
-    section: "Section 209, Row 8",
-    description: "Doja Cat brings her electrifying performance and chart-topping hits to the stage.",
-  },
 ];
 
 const EventsScreen = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const openEventDetails = (event: Event) => {
@@ -83,15 +81,37 @@ const EventsScreen = () => {
     setModalVisible(false);
   };
 
+  const events = activeTab === 'upcoming' ? upcomingEvents : pastEvents;
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>My Events</Text>
         <TouchableOpacity style={styles.helpButton}>
           <Text style={styles.helpText}>Help</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Tabs */}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === 'upcoming' && styles.activeTab]} 
+          onPress={() => setActiveTab('upcoming')}
+        >
+          <Text style={[styles.tabText, activeTab === 'upcoming' && styles.activeTabText]}>
+            UPCOMING ({upcomingEvents.length})
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === 'past' && styles.activeTab]} 
+          onPress={() => setActiveTab('past')}
+        >
+          <Text style={[styles.tabText, activeTab === 'past' && styles.activeTabText]}>
+            PAST ({pastEvents.length})
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -111,6 +131,7 @@ const EventsScreen = () => {
         event={selectedEvent}
         visible={modalVisible}
         onClose={closeEventDetails}
+        useJhopeImage={true}
       />
 
       {/* Bottom Navigation */}
@@ -120,7 +141,7 @@ const EventsScreen = () => {
           onPress={() => navigation.navigate('Home')}
         >
           <MaterialCommunityIcons name="magnify" size={22} color="gray" />
-          <Text style={styles.navItemText}>Discover</Text>
+          <Text style={styles.navItemText}>Home</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.navItem}>
@@ -129,7 +150,7 @@ const EventsScreen = () => {
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="ticket" size={22} color="#3B82F6" />
+          <MaterialCommunityIcons name="ticket" size={22} color="#0066cc" />
           <Text style={styles.navItemTextActive}>My Events</Text>
         </TouchableOpacity>
         
@@ -146,9 +167,6 @@ const EventsScreen = () => {
           <Text style={styles.navItemText}>My Account</Text>
         </TouchableOpacity>
       </View>
-      
-      {/* Home Indicator Line */}
-      <View style={styles.homeIndicator} />
     </SafeAreaView>
   );
 };
@@ -156,7 +174,7 @@ const EventsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#222",
   },
   header: {
     flexDirection: "row",
@@ -164,31 +182,53 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    backgroundColor: "#222",
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#fff",
   },
   helpButton: {
     padding: 5,
   },
   helpText: {
     fontSize: 16,
-    color: "#666",
+    color: "#fff",
+  },
+  tabContainer: {
+    flexDirection: "row",
+    backgroundColor: "#0066cc",
+  },
+  tab: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 15,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: "#fff",
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "rgba(255,255,255,0.7)",
+  },
+  activeTabText: {
+    color: "#fff",
   },
   scrollView: {
     flex: 1,
+    backgroundColor: "#f0f0f0",
   },
   bottomNavigation: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     paddingVertical: 10,
+    backgroundColor: "#fff",
     borderTopWidth: 1,
     borderTopColor: "#eee",
-    backgroundColor: "#fff",
   },
   navItem: {
     alignItems: "center",
@@ -200,16 +240,8 @@ const styles = StyleSheet.create({
   },
   navItemTextActive: {
     fontSize: 12,
-    color: "#3B82F6",
+    color: "#0066cc",
     marginTop: 4,
-  },
-  homeIndicator: {
-    height: 4,
-    width: 100,
-    backgroundColor: "#ddd",
-    borderRadius: 2,
-    alignSelf: "center",
-    marginBottom: 6,
   },
 });
 
