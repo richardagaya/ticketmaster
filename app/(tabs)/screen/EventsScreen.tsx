@@ -9,7 +9,7 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import EventCard, { Event } from "../../../components/EventCard";
@@ -26,17 +26,17 @@ type RootStackParamList = {
 const upcomingEvents: Event[] = [
   {
     id: 1,
-    title: "j-hope Tour | 'HOPE ON THE STAGE' in CHICAGO",
-    date: "Mon, MAR 17, 8:00pm",
+    title: "Grand National Tour|Kendrick Lamar and SZA",
+    date: "Sat, Apr 26, 7:00pm",
     venue: "Allstate Arena",
-    image: require("../../../assets/images/jhope.jpg"),
+    image: require("../../../assets/images/sza.png"),
     tickets: 2,
     price: "$350",
     section: "Floor B, Row 10",
     description: "Experience Taylor Swift's record-breaking Eras Tour, a journey through all of Taylor's musical eras.",
-    sec: "144",
-    row: "27",
-    seat: "7"
+    sec: "209",
+    row: "23",
+    seat: "6"
   },
 ];
 
@@ -52,17 +52,6 @@ const pastEvents: Event[] = [
     price: "$220",
     section: "Section 112, Row 15",
     description: "Don't miss this incredible collaboration between Kendrick Lamar and SZA live in concert.",
-  },
-  {
-    id: 3,
-    title: "Blake Shelton",
-    date: "Sun, Dec 10, 6:30pm",
-    venue: "The Forum",
-    image: require("../../../assets/images/blake.jpeg"),
-    tickets: 3,
-    price: "$180",
-    section: "Loge 5, Row 2",
-    description: "Country music superstar Blake Shelton brings his Back to the Honky Tonk Tour to town.",
   },
 ];
 
@@ -140,22 +129,22 @@ const EventsScreen = () => {
           style={styles.navItem}
           onPress={() => navigation.navigate('Home')}
         >
-          <MaterialCommunityIcons name="magnify" size={22} color="gray" />
+          <Ionicons name="search" size={24} color="#9CA3AF" />
           <Text style={styles.navItemText}>Home</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="heart-outline" size={22} color="gray" />
+          <Ionicons name="heart-outline" size={24} color="#9CA3AF" />
           <Text style={styles.navItemText}>For You</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="ticket" size={22} color="#0066cc" />
+          <Ionicons name="ticket" size={24} color="#3B82F6" />
           <Text style={styles.navItemTextActive}>My Events</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="tag-outline" size={22} color="gray" />
+          <Ionicons name="cash-outline" size={24} color="#9CA3AF" />
           <Text style={styles.navItemText}>Sell</Text>
         </TouchableOpacity>
         
@@ -163,7 +152,7 @@ const EventsScreen = () => {
           style={styles.navItem}
           onPress={() => navigation.navigate('accscreen')}
         >
-          <MaterialCommunityIcons name="account-circle-outline" size={22} color="gray" />
+          <Ionicons name="person-circle-outline" size={24} color="#9CA3AF" />
           <Text style={styles.navItemText}>My Account</Text>
         </TouchableOpacity>
       </View>
@@ -183,6 +172,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     backgroundColor: "#222",
+    marginTop: 50,
   },
   headerTitle: {
     fontSize: 24,

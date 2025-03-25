@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Switch, TouchableOpacity, ScrollView, Image, SafeAreaView } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -26,8 +26,8 @@ const AccountScreen = () => {
 
         {/* User Information Section */}
         <View className="p-6 bg-black">
-          <Text className="text-4xl text-white font-medium mb-2">Mike</Text>
-          <Text className="text-xl text-gray-400">showalter58@gmail.com</Text>
+          <Text className="text-4xl text-white font-medium mb-2">Deja</Text>
+          <Text className="text-xl text-gray-400">dejpar52@gmail.com</Text>
         </View>
 
         {/* Notifications Section */}
@@ -37,7 +37,7 @@ const AccountScreen = () => {
           {/* My Notifications */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="email-outline" size={28} color="black" />
+              <Ionicons name="mail-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">My Notifications</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -46,7 +46,7 @@ const AccountScreen = () => {
           {/* Receive Notifications */}
           <View className="flex-row justify-between items-center py-3 border-b border-gray-300">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="bell-outline" size={28} color="black" />
+              <Ionicons name="notifications-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Receive Notifications?</Text>
             </View>
             <Switch
@@ -71,12 +71,12 @@ const AccountScreen = () => {
           {/* My Location */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="map-marker-outline" size={28} color="black" />
+              <Ionicons name="location-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">My Location</Text>
             </View>
             <View className="flex-row items-center">
               <Text className="text-lg text-blue-600 mr-2">Los Angeles, CA</Text>
-              <MaterialCommunityIcons name="pencil-outline" size={22} color="blue" className="ml-1" />
+              <Ionicons name="pencil-outline" size={22} color="blue" className="ml-1" />
             </View>
           </TouchableOpacity>
 
@@ -94,14 +94,14 @@ const AccountScreen = () => {
             </View>
             <View className="flex-row items-center">
               <Text className="text-lg text-blue-600 mr-2">United States</Text>
-              <MaterialCommunityIcons name="pencil-outline" size={22} color="blue" className="ml-1" />
+              <Ionicons name="pencil-outline" size={22} color="blue" className="ml-1" />
             </View>
           </TouchableOpacity>
 
           {/* Location Based Content */}
           <View className="flex-row justify-between items-center py-3 border-b border-gray-300">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="navigation-outline" size={28} color="black" />
+              <Ionicons name="navigate-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Location Based Content</Text>
             </View>
             <Switch
@@ -121,7 +121,7 @@ const AccountScreen = () => {
           {/* My Favorites */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="heart-outline" size={28} color="black" />
+              <Ionicons name="heart-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">My Favorites</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -130,7 +130,7 @@ const AccountScreen = () => {
           {/* Saved Payment Methods */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="credit-card-outline" size={28} color="black" />
+              <Ionicons name="card-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Saved Payment Methods</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -153,7 +153,7 @@ const AccountScreen = () => {
           {/* Need Help? */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="help-circle-outline" size={28} color="black" />
+              <Ionicons name="help-circle-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Need Help?</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -162,7 +162,7 @@ const AccountScreen = () => {
           {/* Give Us Feedback */}
           <TouchableOpacity className="flex-row justify-between items-center py-3">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="pencil-outline" size={28} color="black" />
+              <Ionicons name="pencil-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Give Us Feedback</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -171,7 +171,7 @@ const AccountScreen = () => {
           {/* Legal */}
           <TouchableOpacity className="flex-row justify-between items-center py-3 border-b border-gray-300">
             <View className="flex-row items-center">
-              <MaterialCommunityIcons name="file-document-outline" size={28} color="black" />
+              <Ionicons name="document-text-outline" size={28} color="black" />
               <Text className="text-lg text-black ml-4">Legal</Text>
             </View>
             <Ionicons name="chevron-forward" size={22} color="black" />
@@ -181,7 +181,7 @@ const AccountScreen = () => {
         {/* Sign Out Button */}
         <TouchableOpacity className="mx-5 my-6">
           <View className="flex-row items-center">
-            <MaterialCommunityIcons name="logout" size={28} color="red" />
+            <Ionicons name="log-out-outline" size={28} color="red" />
             <Text className="text-lg text-red-600 ml-4">Sign Out</Text>
           </View>
         </TouchableOpacity>
@@ -196,12 +196,12 @@ const AccountScreen = () => {
           className="items-center"
           onPress={() => navigation.navigate('Home')}
         >
-          <MaterialCommunityIcons name="magnify" size={24} color="gray" />
+          <Ionicons name="search-outline" size={24} color="gray" />
           <Text className="text-xs text-gray-500 mt-1">Discover</Text>
         </TouchableOpacity>
         
         <TouchableOpacity className="items-center">
-          <MaterialCommunityIcons name="heart" size={24} color="gray" />
+          <Ionicons name="heart-outline" size={24} color="gray" />
           <Text className="text-xs text-gray-500 mt-1">For You</Text>
         </TouchableOpacity>
         
@@ -209,17 +209,17 @@ const AccountScreen = () => {
           className="items-center"
           onPress={() => navigation.navigate('Events')}
         >
-          <MaterialCommunityIcons name="ticket-outline" size={24} color="gray" />
+          <Ionicons name="ticket-outline" size={24} color="gray" />
           <Text className="text-xs text-gray-500 mt-1">My Events</Text>
         </TouchableOpacity>
         
         <TouchableOpacity className="items-center">
-          <MaterialCommunityIcons name="tag-outline" size={24} color="gray" />
+          <Ionicons name="cash-outline" size={24} color="gray" />
           <Text className="text-xs text-gray-500 mt-1">Sell</Text>
         </TouchableOpacity>
         
         <TouchableOpacity className="items-center">
-          <MaterialCommunityIcons name="account-circle" size={24} color="blue" />
+          <Ionicons name="person-circle-outline" size={24} color="blue" />
           <Text className="text-xs text-blue-600 mt-1">My Account</Text>
         </TouchableOpacity>
       </View>

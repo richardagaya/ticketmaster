@@ -29,19 +29,13 @@ interface EventCardProps {
   onPress: (event: Event) => void;
 }
 
-// Custom Taylor Swift Eras tour image
-const jhopeImage = require("../assets/images/jhope.jpg");
-
 const EventCard: React.FC<EventCardProps> = ({ event, onPress }) => {
-  // Check if this is the Taylor Swift event
-  const isTaylorSwift = event.title.includes("Jhope");
-  
   return (
     <TouchableOpacity
       style={styles.eventCard}
       onPress={() => onPress(event)}
     >
-      <Image source={jhopeImage} style={styles.eventImage} />
+      <Image source={event.image} style={styles.eventImage} />
       <View style={styles.eventContent}>
         <View style={styles.eventInfo}>
           <Text style={styles.eventTitle}>{event.title}</Text>

@@ -2,7 +2,7 @@ import React from "react";
 import {
   View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions, StyleSheet, StatusBar, SafeAreaView
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -37,9 +37,7 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Text style={styles.logoText}>ticketmaster</Text>
           <View style={styles.headerRight}>
-            <View style={styles.newBadge}>
-              <Text style={styles.newBadgeText}>NEW!</Text>
-            </View>
+           
             <View style={styles.flagContainer}>
               <Image
                 source={{ uri: "https://flagcdn.com/w40/us.png" }}
@@ -52,21 +50,21 @@ const HomeScreen = () => {
         {/* Location and Date Selection */}
         <View style={styles.locationDateContainer}>
           <View style={styles.locationWrapper}>
-            <MaterialCommunityIcons name="navigation-variant-outline" size={20} color="#3B82F6" />
+            <Ionicons name="location-outline" size={20} color="#3B82F6" />
             <Text style={styles.locationText}>Los Angeles, CA</Text>
             <TouchableOpacity>
-              <MaterialCommunityIcons name="close-circle" size={16} color="gray" />
+              <Ionicons name="close-circle" size={16} color="gray" />
             </TouchableOpacity>
           </View>
           
           <View style={styles.divider} />
           
           <View style={styles.dateWrapper}>
-            <MaterialCommunityIcons name="calendar-blank-outline" size={20} color="#3B82F6" />
+            <Ionicons name="calendar-outline" size={20} color="#3B82F6" />
             <Text style={styles.dateText}>All Dates</Text>
           </View>
           
-          <MaterialCommunityIcons name="chevron-right" size={20} color="white" />
+          <Ionicons name="chevron-forward" size={20} color="white" />
         </View>
 
         {/* Search Bar */}
@@ -77,7 +75,7 @@ const HomeScreen = () => {
               placeholder="Search by Artist, Event or Venue"
               placeholderTextColor="#6B7280"
             />
-            <MaterialCommunityIcons name="magnify" size={24} color="#3B82F6" />
+            <Ionicons name="search" size={24} color="#3B82F6" />
           </View>
         </View>
 
@@ -122,6 +120,7 @@ const HomeScreen = () => {
             style={styles.secondEventImage}
           />
         </View>
+
         
         {/* Add some bottom padding for scrolling beyond the bottom nav */}
         <View style={{ height: 100 }} />
@@ -131,12 +130,12 @@ const HomeScreen = () => {
       <View style={styles.bottomNavContainer}>
         <View style={styles.bottomNavigation}>
           <TouchableOpacity style={styles.navItem}>
-            <MaterialCommunityIcons name="magnify" size={24} color="#3B82F6" />
+            <Ionicons name="search" size={24} color="#3B82F6" />
             <Text style={styles.navItemTextActive}>Discover</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.navItem}>
-            <MaterialCommunityIcons name="heart-outline" size={24} color="#9CA3AF" />
+            <Ionicons name="heart-outline" size={24} color="#9CA3AF" />
             <Text style={styles.navItemText}>For You</Text>
           </TouchableOpacity>
           
@@ -144,12 +143,12 @@ const HomeScreen = () => {
             style={styles.navItem}
             onPress={() => handleNavigation("Events")}
           >
-            <MaterialCommunityIcons name="ticket-outline" size={24} color="#9CA3AF" />
+            <Ionicons name="ticket-outline" size={24} color="#9CA3AF" />
             <Text style={styles.navItemText}>My Events</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.navItem}>
-            <MaterialCommunityIcons name="tag-outline" size={24} color="#9CA3AF" />
+            <Ionicons name="cash-outline" size={24} color="#9CA3AF" />
             <Text style={styles.navItemText}>Sell</Text>
           </TouchableOpacity>
           
@@ -157,7 +156,7 @@ const HomeScreen = () => {
             style={styles.navItem}
             onPress={() => handleNavigation("accscreen")}
           >
-            <MaterialCommunityIcons name="account-circle-outline" size={24} color="#9CA3AF" />
+            <Ionicons name="person-circle-outline" size={24} color="#9CA3AF" />
             <Text style={styles.navItemText}>My Account</Text>
           </TouchableOpacity>
         </View>
@@ -183,13 +182,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingTop: 14,
+    paddingTop: 40,
     paddingBottom: 10,
   },
   logoText: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#fff",
+    marginLeft: 124,
   },
   headerRight: {
     flexDirection: "row",
