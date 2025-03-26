@@ -17,6 +17,9 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
       }
     },
     "production": {}
