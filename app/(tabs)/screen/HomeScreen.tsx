@@ -3,6 +3,7 @@ import {
   View, Text, TextInput, TouchableOpacity, Image, ScrollView, ImageBackground, Dimensions, StyleSheet, StatusBar, SafeAreaView
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -32,39 +33,35 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <ScrollView style={styles.scrollContainer}>
-        {/* Header with Logo and Flag */}
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.logoText}>ticketmaster</Text>
           <View style={styles.headerRight}>
-           
-            <View style={styles.flagContainer}>
+            <TouchableOpacity style={styles.flagContainer}>
               <Image
                 source={{ uri: "https://flagcdn.com/w40/us.png" }}
-                style={{ width: 32, height: 32 }}
+                style={styles.flagImage}
               />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 
-        {/* Location and Date Selection */}
+        {/* Location and Date */}
         <View style={styles.locationDateContainer}>
           <View style={styles.locationWrapper}>
-            <Ionicons name="location-outline" size={20} color="#3B82F6" />
-            <Text style={styles.locationText}>Los Angeles, CA</Text>
+            <MaterialCommunityIcons name="map-marker-outline" size={24} color="#fff" />
+            <Text style={styles.locationText}>Los Angeles</Text>
             <TouchableOpacity>
-              <Ionicons name="close-circle" size={16} color="gray" />
+              <MaterialCommunityIcons name="close" size={20} color="#666" />
             </TouchableOpacity>
           </View>
-          
           <View style={styles.divider} />
-          
           <View style={styles.dateWrapper}>
-            <Ionicons name="calendar-outline" size={20} color="#3B82F6" />
+            <MaterialCommunityIcons name="calendar-blank-outline" size={24} color="#fff" />
             <Text style={styles.dateText}>All Dates</Text>
+            <MaterialCommunityIcons name="chevron-right" size={24} color="#fff" />
           </View>
-          
-          <Ionicons name="chevron-forward" size={20} color="white" />
         </View>
 
         {/* Search Bar */}
@@ -73,56 +70,92 @@ const HomeScreen = () => {
             <TextInput
               style={styles.searchInput}
               placeholder="Search by Artist, Event or Venue"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor="#666"
             />
-            <Ionicons name="search" size={24} color="#3B82F6" />
+            <MaterialCommunityIcons name="magnify" size={24} color="#0066cc" />
           </View>
         </View>
 
-        {/* Category Navigation */}
+        {/* Categories */}
         <View style={styles.categoryContainer}>
           <TouchableOpacity style={styles.categoryButton}>
             <Text style={styles.categoryText}>Concerts</Text>
           </TouchableOpacity>
-          
           <TouchableOpacity style={styles.categoryButton}>
             <Text style={styles.categoryText}>Sports</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={[styles.categoryButton, styles.lastCategoryButton]}>
+          <TouchableOpacity style={styles.categoryButton}>
             <Text style={styles.categoryText}>Arts, Theater & Com</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Featured Event - Kendrick Lamar and SZA */}
-        <View style={styles.featuredEventContainer}>
-          <ImageBackground
-            source={require("../../../assets/images/sza.png")}
-            defaultSource={require("../../../assets/images/sza.png")}
-            resizeMode="cover"
-            style={styles.featuredEventImage}
-          >
-            <View style={styles.featuredEventTextContainer}>
-              <Text style={styles.featuredEventTitle}>Kendrick Lamar and SZA</Text>
-              <TouchableOpacity style={styles.findTicketsButton}>
-                <Text style={styles.findTicketsText}>Find Tickets</Text>
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        </View>
-        
-        {/* Second Featured Event - Person with Hat */}
-        <View style={styles.secondEventContainer}>
-          <Image
-            source={require("../../../assets/images/blake.jpeg")}
-            defaultSource={require("../../../assets/images/blake.jpeg")}
-            resizeMode="cover"
-            style={styles.secondEventImage}
-          />
+        {/* Featured Events */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Featured Events</Text>
+          <TouchableOpacity>
+            <Text style={styles.seeAllButton}>See All</Text>
+          </TouchableOpacity>
         </View>
 
-        
-        {/* Add some bottom padding for scrolling beyond the bottom nav */}
+        {/* Featured Event Cards */}
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          style={styles.featuredEventsContainer}
+          contentContainerStyle={styles.featuredEventsContent}
+        >
+          <TouchableOpacity style={styles.featuredEventCard}>
+            <Image source={require("../../../assets/images/sabrina.jpg")} style={styles.featuredEventImage} />
+            <View style={styles.eventInfo}>
+              <Text style={styles.eventTitle}>Sabrina Carpenter</Text>
+              <Text style={styles.eventDate}>Sat, Apr 26 • 7:00 PM</Text>
+              <Text style={styles.eventVenue}>Allstate Arena</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.featuredEventCard}>
+            <Image source={require("../../../assets/images/blake.jpeg")} style={styles.featuredEventImage} />
+            <View style={styles.eventInfo}>
+              <Text style={styles.eventTitle}>Blake Shelton</Text>
+              <Text style={styles.eventDate}>Fri, May 10 • 8:00 PM</Text>
+              <Text style={styles.eventVenue}>SoFi Stadium</Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* Trending Near You */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Trending Near You</Text>
+          <TouchableOpacity>
+            <Text style={styles.seeAllButton}>See All</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Trending Event Cards */}
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          style={styles.trendingEventsContainer}
+          contentContainerStyle={styles.trendingEventsContent}
+        >
+          <TouchableOpacity style={styles.trendingEventCard}>
+            <Image source={require("../../../assets/images/doja.jpg")} style={styles.trendingEventImage} />
+            <View style={styles.eventInfo}>
+              <Text style={styles.eventTitle}>Doja Cat</Text>
+              <Text style={styles.eventDate}>Thu, Jun 15 • 7:30 PM</Text>
+              <Text style={styles.eventVenue}>The Forum</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.trendingEventCard}>
+            <Image source={require("../../../assets/images/rodwave.jpg")} style={styles.trendingEventImage} />
+            <View style={styles.eventInfo}>
+              <Text style={styles.eventTitle}>Rod Wave</Text>
+              <Text style={styles.eventDate}>Sat, Jul 8 • 8:00 PM</Text>
+              <Text style={styles.eventVenue}>Crypto.com Arena</Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* Bottom Spacing */}
         <View style={{ height: 100 }} />
       </ScrollView>
 
@@ -130,12 +163,12 @@ const HomeScreen = () => {
       <View style={styles.bottomNavContainer}>
         <View style={styles.bottomNavigation}>
           <TouchableOpacity style={styles.navItem}>
-            <Ionicons name="search" size={24} color="#3B82F6" />
+            <MaterialCommunityIcons name="magnify" size={26} color="#3B82F6" />
             <Text style={styles.navItemTextActive}>Discover</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.navItem}>
-            <Ionicons name="heart-outline" size={24} color="#9CA3AF" />
+            <MaterialCommunityIcons name="heart-outline" size={26} color="#9CA3AF" />
             <Text style={styles.navItemText}>For You</Text>
           </TouchableOpacity>
           
@@ -143,12 +176,12 @@ const HomeScreen = () => {
             style={styles.navItem}
             onPress={() => handleNavigation("Events")}
           >
-            <Ionicons name="ticket-outline" size={24} color="#9CA3AF" />
+            <MaterialCommunityIcons name="ticket-outline" size={26} color="#9CA3AF" />
             <Text style={styles.navItemText}>My Events</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.navItem}>
-            <Ionicons name="cash-outline" size={24} color="#9CA3AF" />
+            <MaterialCommunityIcons name="tag-outline" size={26} color="#9CA3AF" />
             <Text style={styles.navItemText}>Sell</Text>
           </TouchableOpacity>
           
@@ -156,13 +189,10 @@ const HomeScreen = () => {
             style={styles.navItem}
             onPress={() => handleNavigation("accscreen")}
           >
-            <Ionicons name="person-circle-outline" size={24} color="#9CA3AF" />
-            <Text style={styles.navItemText}>My Account</Text>
+            <MaterialCommunityIcons name="account-outline" size={26} color="#9CA3AF" />
+            <Text style={styles.navItemText}>Account</Text>
           </TouchableOpacity>
         </View>
-        
-        {/* Home Indicator Line */}
-        <View style={styles.homeIndicator} />
       </View>
     </SafeAreaView>
   );
@@ -175,21 +205,21 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
-    backgroundColor: "#000",
   },
   header: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 40,
-    paddingBottom: 10,
+    paddingVertical: 12,
+    marginTop: 24,
   },
   logoText: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 24,
     color: "#fff",
-    marginLeft: 124,
+    fontWeight: "500",
+    fontStyle: "italic",
+    marginLeft: 100,
   },
   headerRight: {
     flexDirection: "row",
@@ -198,28 +228,30 @@ const styles = StyleSheet.create({
   newBadge: {
     backgroundColor: "#8B5CF6",
     borderRadius: 20,
-    marginRight: 8,
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 6,
-    overflow: "hidden",
+    marginRight: 8,
   },
   newBadgeText: {
     color: "#fff",
-    fontWeight: "bold",
     fontSize: 14,
+    fontWeight: "600",
   },
   flagContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     overflow: "hidden",
+  },
+  flagImage: {
+    width: "100%",
+    height: "100%",
   },
   locationDateContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    marginVertical: 12,
-    backgroundColor: "#000",
+    marginBottom: 16,
   },
   locationWrapper: {
     flexDirection: "row",
@@ -227,16 +259,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   locationText: {
-    fontSize: 16,
     color: "#fff",
-    marginLeft: 6,
-    marginRight: 4,
+    fontSize: 16,
+    marginLeft: 8,
+    marginRight: 8,
   },
   divider: {
-    height: 20,
     width: 1,
+    height: 24,
     backgroundColor: "#333",
-    marginHorizontal: 12,
+    marginHorizontal: 16,
   },
   dateWrapper: {
     flexDirection: "row",
@@ -244,9 +276,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dateText: {
-    fontSize: 16,
     color: "#fff",
-    marginLeft: 6,
+    fontSize: 16,
+    marginLeft: 8,
+    flex: 1,
   },
   searchContainer: {
     paddingHorizontal: 16,
@@ -256,100 +289,121 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderRadius: 24,
+    borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: "#4B5563",
+    color: "#000",
   },
   categoryContainer: {
     flexDirection: "row",
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 24,
   },
   categoryButton: {
     borderWidth: 1,
-    borderColor: "#333",
+    borderColor: "#fff",
     borderRadius: 24,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginRight: 10,
-    backgroundColor: "#222",
-  },
-  lastCategoryButton: {
-    marginRight: 0,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginRight: 8,
   },
   categoryText: {
-    fontSize: 14,
     color: "#fff",
-    fontWeight: "500",
+    fontSize: 14,
   },
-  featuredEventContainer: {
-    width: "100%",
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  seeAllButton: {
+    color: "#3B82F6",
+    fontSize: 14,
+  },
+  featuredEventsContainer: {
+    marginBottom: 24,
+  },
+  featuredEventsContent: {
+    paddingHorizontal: 16,
+  },
+  featuredEventCard: {
+    width: 280,
+    marginRight: 16,
+    borderRadius: 12,
+    backgroundColor: "#1a1a1a",
+    overflow: "hidden",
   },
   featuredEventImage: {
-    width: screenWidth,
-    height: 380,
+    width: "100%",
+    height: 160,
   },
-  featuredEventTextContainer: {
+  eventInfo: {
+    padding: 12,
+  },
+  eventTitle: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  eventDate: {
+    color: "#999",
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  eventVenue: {
+    color: "#999",
+    fontSize: 14,
+  },
+  trendingEventsContainer: {
+    marginBottom: 24,
+  },
+  trendingEventsContent: {
+    paddingHorizontal: 16,
+  },
+  trendingEventCard: {
+    width: 280,
+    marginRight: 16,
+    borderRadius: 12,
+    backgroundColor: "#1a1a1a",
+    overflow: "hidden",
+  },
+  trendingEventImage: {
+    width: "100%",
+    height: 160,
+  },
+  bottomNavContainer: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 24,
-  },
-  featuredEventTitle: {
-    color: "#fff",
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  findTicketsButton: {
-    backgroundColor: "#2563EB",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    width: 180,
-    marginBottom: 16,
-  },
-  findTicketsText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
-  },
-  secondEventContainer: {
-    marginHorizontal: 0,
-    marginVertical: 0,
-  },
-  secondEventImage: {
-    width: screenWidth,
-    height: 220,
-  },
-  bottomNavContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    backgroundColor: "#1a1a1a",
+    borderTopWidth: 1,
+    borderTopColor: "#333",
   },
   bottomNavigation: {
-    height: 70,
-    backgroundColor: "#fff",
-    paddingVertical: 12,
-    borderTopWidth: 0,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    paddingVertical: 10,
   },
   navItem: {
     alignItems: "center",
   },
   navItemText: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#9CA3AF",
     marginTop: 4,
   },
   navItemTextActive: {
@@ -357,14 +411,6 @@ const styles = StyleSheet.create({
     color: "#3B82F6",
     fontWeight: "500",
     marginTop: 4,
-  },
-  homeIndicator: {
-    height: 5,
-    width: 120,
-    backgroundColor: "#555",
-    borderRadius: 2.5,
-    alignSelf: "center",
-    marginVertical: 8,
   },
 });
 

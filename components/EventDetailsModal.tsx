@@ -13,34 +13,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Event } from "./EventCard";
 import TransferTicketsModal from "./TransferTicketsModal";
 
-// Import J-Hope image
-const jhopeImage = require("../assets/images/sza.png");
-
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 interface EventDetailsModalProps {
   event: Event | null;
   visible: boolean;
   onClose: () => void;
-  useJhopeImage?: boolean;
 }
 
 const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
   event,
   visible,
   onClose,
-  useJhopeImage = false,
 }) => {
   const [transferModalVisible, setTransferModalVisible] = useState(false);
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
   if (!event) return null;
-
-  const handleTransferClick = () => {
-    // For this example, we'll select both seats 12 and 13
-    setSelectedSeats(["12", "13"]);
-    setTransferModalVisible(true);
-  };
 
   return (
     <>
@@ -51,82 +39,98 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
         onRequestClose={onClose}
       >
         <SafeAreaView style={styles.modalContainer}>
-          {/* Modal Header */}
-          <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <MaterialCommunityIcons name="close" size={24} color="#fff" />
+          {/* Header */}
+          <View style={styles.header}>
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <MaterialCommunityIcons name="close" size={28} color="#FFFFFF" />
             </TouchableOpacity>
-            <Text style={styles.modalTitle}>My Tickets</Text>
-            <View style={{ width: 24 }} />
+            <Text style={styles.headerTitle}>My Tickets</Text>
+            <View style={{ width: 28 }} />
           </View>
 
-          {/* Ticket Container */}
-          <View style={styles.ticketContainer}>
-            {/* Ticket Info Section */}
-            <View style={styles.ticketInfoSection}>
-              <Text style={styles.verifiedFanText}>Verified Fan Offer</Text>
-              
+          <View style={styles.contentContainer}>
+            {/* Ticket Card */}
+            <View style={styles.ticketCard}>
+              {/* Ticket Type */}
+              <View style={styles.ticketTypeContainer}>
+                <Text style={styles.ticketTypeText}>Standard Admission</Text>
+              </View>
+
+              {/* Seat Info */}
               <View style={styles.seatInfoContainer}>
-                <View style={styles.seatInfo}>
+                <View style={styles.seatColumn}>
                   <Text style={styles.seatLabel}>SEC</Text>
-                  <Text style={styles.seatValue}>{event.sec || "204"}</Text>
+                  <Text style={styles.seatValue}>202</Text>
                 </View>
-                <View style={styles.seatInfo}>
+                <View style={styles.seatColumn}>
                   <Text style={styles.seatLabel}>ROW</Text>
-                  <Text style={styles.seatValue}>{event.row || "K"}</Text>
+                  <Text style={styles.seatValue}>4</Text>
                 </View>
-                <View style={styles.seatInfo}>
+                <View style={styles.seatColumn}>
                   <Text style={styles.seatLabel}>SEAT</Text>
-                  <Text style={styles.seatValue}>{event.seat || "7"}</Text>
+                  <Text style={styles.seatValue}>6</Text>
                 </View>
               </View>
-            </View>
 
-            {/* Event Image and Details */}
-            <View style={styles.eventImageContainer}>
-              <View style={styles.taylorImageGrid}>
-                <Image source={useJhopeImage ? jhopeImage : event.image} style={styles.eventImage} />
+              {/* Event Image */}
+              <Image 
+                source={require('../assets/images/sabrina.jpg')}
+                style={styles.eventImage}
+                resizeMode="cover"
+              />
+
+              {/* Event Info */}
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>SABRINA CARPENTER: SHORT N' SWEET TOUR</Text>
+                <Text style={styles.eventDateTime}>
+                  Fri • Oct 31 • 7:00pm • Madison Square Garden
+                </Text>
               </View>
-              <View style={styles.eventInfoOverlay}>
-                <Text style={styles.eventTitle}>Grand National Tour|Kendrick Lamar and SZA</Text>
-                <Text style={styles.eventDateTime}>Sat • May 24 • 7:00 PM • SoFi Stadium</Text>
+
+              {/* Location */}
+              <View style={styles.locationContainer}>
+                <Text style={styles.locationText}>UPPER BOWL</Text>
               </View>
-            </View>
 
-            <View style={styles.venueSection}>
-              <Text style={styles.venueText}>GATE H</Text>
-            </View>
-
-            {/* View Barcode and Ticket Details */}
-            <View style={styles.linkContainer}>
-              <TouchableOpacity>
-                <Text style={styles.linkText}>View Barcode</Text>
+              {/* View Ticket Button */}
+              <TouchableOpacity style={styles.viewTicketButton}>
+                <MaterialCommunityIcons name="qrcode" size={20} color="#FFFFFF" />
+                <Text style={styles.viewTicketText}>View Ticket</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.linkText}>Ticket Details</Text>
+
+              {/* Ticket Details */}
+              <TouchableOpacity style={styles.ticketDetailsButton}>
+                <Text style={styles.ticketDetailsText}>Ticket Details</Text>
               </TouchableOpacity>
             </View>
 
             {/* Ticketmaster Logo */}
             <View style={styles.logoContainer}>
-              <Text style={styles.ticketMasterLogo}>ticketmaster®</Text>
+              <Text style={styles.logoText}>ticketmaster®</Text>
             </View>
-          </View>
 
-          {/* Bottom Buttons */}
-          <View style={styles.bottomButtons}>
-            <TouchableOpacity 
-              style={styles.transferButton}
-              onPress={handleTransferClick}
-            >
-              <Text style={styles.transferButtonText}>Transfer</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.sellButtonDisabled}
-              disabled={true}
-            >
-              <Text style={styles.sellButtonTextDisabled}>Sell</Text>
-            </TouchableOpacity>
+            {/* Action Buttons */}
+            <View style={styles.actionButtonsContainer}>
+              <TouchableOpacity 
+                style={styles.transferButton}
+                onPress={() => setTransferModalVisible(true)}
+              >
+                <Text style={styles.transferButtonText}>Transfer</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.sellButton}
+                disabled={true}
+              >
+                <Text style={styles.sellButtonText}>Sell</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Navigation Dots */}
+            <View style={styles.dotsContainer}>
+              <View style={[styles.dot, styles.activeDot]} />
+              <View style={styles.dot} />
+            </View>
           </View>
         </SafeAreaView>
       </Modal>
@@ -136,7 +140,7 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
         event={event}
         visible={transferModalVisible}
         onClose={() => setTransferModalVisible(false)}
-        selectedSeats={selectedSeats}
+        selectedSeats={["7"]}
       />
     </>
   );
@@ -145,164 +149,193 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    backgroundColor: "#222",
+    backgroundColor: "#1A1E25",
   },
-  modalHeader: {
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: "#222",
+    backgroundColor: "#1A1E25",
+    height: height * 0.08,
   },
   closeButton: {
-    padding: 4,
+    width: 28,
+    height: 28,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff"
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: "500",
+    color: "#FFFFFF",
   },
-  ticketContainer: {
+  contentContainer: {
     flex: 1,
-    margin: 16,
-    backgroundColor: "#fff",
-    borderRadius: 12,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  ticketCard: {
+    marginHorizontal: 16,
+    borderRadius: 20,
     overflow: "hidden",
-    marginBottom: 80,
+    backgroundColor: "#FFFFFF",
+    width: width - 32,
+    maxHeight: height * 0.68,
   },
-  ticketInfoSection: {
-    backgroundColor: "#0066cc",
-    padding: 16,
+  ticketTypeContainer: {
+    backgroundColor: "#0078FF",
+    paddingVertical: 10,
+    alignItems: "center",
   },
-  verifiedFanText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 16,
+  ticketTypeText: {
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#FFFFFF",
   },
   seatInfoContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
+    backgroundColor: "#0078FF",
+    paddingBottom: 10,
   },
-  seatInfo: {
+  seatColumn: {
+    flex: 1,
     alignItems: "center",
+    paddingVertical: 4,
   },
   seatLabel: {
     fontSize: 16,
-    color: "#fff",
-    opacity: 0.8,
+    fontWeight: "600",
+    color: "#FFFFFF",
     marginBottom: 4,
   },
   seatValue: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  eventImageContainer: {
-    width: "100%",
-    height: 250,
-    position: "relative",
-  },
-  taylorImageGrid: {
-    width: "100%",
-    height: "100%",
-    position: "relative",
+    fontSize: 30,
+    fontWeight: "500",
+    color: "#FFFFFF",
   },
   eventImage: {
     width: "100%",
-    height: "100%",
-    resizeMode: "cover",
+    height: height * 0.2,
   },
-  eventInfoOverlay: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 16,
-    backgroundColor: "rgba(0,0,0,0.6)",
+  eventInfo: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: "center",
   },
   eventTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 4,
+    fontWeight: "600",
+    color: "#000000",
+    textAlign: "center",
+    marginBottom: 6,
   },
   eventDateTime: {
     fontSize: 14,
-    color: "#fff",
+    color: "#333333",
+    textAlign: "center",
   },
-  venueSection: {
-    padding: 16,
+  locationContainer: {
+    paddingVertical: 10,
     alignItems: "center",
+    borderTopWidth: 1,
+    borderTopColor: "#EEEEEE",
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEEEEE",
   },
-  venueText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
+  locationText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#333333",
   },
-  linkContainer: {
+  viewTicketButton: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 30,
-    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#0078FF",
+    paddingVertical: 12,
+    marginHorizontal: 16,
+    marginVertical: 12,
+    borderRadius: 4,
   },
-  linkText: {
-    color: "#0066cc",
+  viewTicketText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "500",
+    marginLeft: 8,
+  },
+  ticketDetailsButton: {
+    alignItems: "center",
+    paddingVertical: 8,
+    marginBottom: 8,
+  },
+  ticketDetailsText: {
+    color: "#0078FF",
     fontSize: 16,
     fontWeight: "500",
   },
   logoContainer: {
-    backgroundColor: "#0066cc",
-    padding: 16,
-    width: "100%",
+    backgroundColor: "#0078FF",
+    paddingVertical: 12,
     alignItems: "center",
-    position: "absolute",
-    bottom: 0,
+    width: width - 32,
+    marginTop: 0, // No margin top to align with card
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
-  ticketMasterLogo: {
-    color: "#fff",
+  logoText: {
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
+    fontStyle: "italic",
   },
-  bottomButtons: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+  actionButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: width - 32,
+    marginTop: 12,
+    gap: 12,
   },
   transferButton: {
     flex: 1,
-    backgroundColor: "#0066cc",
-    borderRadius: 8,
+    backgroundColor: '#0078FF',
     paddingVertical: 12,
-    alignItems: "center",
-    marginRight: 8,
+    borderRadius: 4,
+    alignItems: 'center',
   },
   transferButtonText: {
-    color: "#fff",
+    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: '600',
   },
-  sellButtonDisabled: {
+  sellButton: {
     flex: 1,
-    backgroundColor: "#444444",
-    borderRadius: 8,
+    backgroundColor: '#E0E0E0',
     paddingVertical: 12,
-    alignItems: "center",
-    marginLeft: 8,
-    opacity: 0.5,
+    borderRadius: 4,
+    alignItems: 'center',
   },
-  sellButtonTextDisabled: {
-    color: "#999999",
+  sellButtonText: {
+    color: '#999999',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: '600',
+  },
+  dotsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 12,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#777777",
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    backgroundColor: "#FFFFFF",
   },
 });
 
-export default EventDetailsModal; 
+export default EventDetailsModal;

@@ -26,14 +26,14 @@ type RootStackParamList = {
 const upcomingEvents: Event[] = [
   {
     id: 1,
-    title: "Grand National Tour|Kendrick Lamar and SZA",
-    date: "Sat, Apr 26, 7:00pm",
-    venue: "Allstate Arena",
-    image: require("../../../assets/images/sza.png"),
+    title: "SABRINA CARPENTER: SHORT N' SWEET TOUR",
+    date: "Fri, Oct 31, 7:00pm",
+    venue: "Maddison Square Garden",
+    image: require("../../../assets/images/sabrina.jpg"),
     tickets: 2,
     price: "$350",
-    section: "Floor B, Row 10",
-    description: "Experience Taylor Swift's record-breaking Eras Tour, a journey through all of Taylor's musical eras.",
+    section: "Sec202, Row 4",
+    description: "Experience Sabrina Carpenter's Short N' Sweet Tour, featuring her latest hits and fan favorites.",
     sec: "209",
     row: "23",
     seat: "6"
@@ -44,14 +44,14 @@ const upcomingEvents: Event[] = [
 const pastEvents: Event[] = [
   {
     id: 2,
-    title: "Kendrick Lamar & SZA",
-    date: "Sat, Nov 5, 8:00pm",
-    venue: "Crypto.com Arena",
-    image: require("../../../assets/images/sza.png"),
+    title: "SHORT N' SWEET|SABRINA CARPENTER",
+    date: "Sat, Apr 26, 7:00pm",
+    venue: "Maddison Square Garden",
+    image: require("../../../assets/images/sabrina.jpg"),
     tickets: 4,
     price: "$220",
-    section: "Section 112, Row 15",
-    description: "Don't miss this incredible collaboration between Kendrick Lamar and SZA live in concert.",
+    section: "Sec202, Row 4",
+    description: "Don't miss Sabrina Carpenter performing live in concert with special guests.",
   },
 ];
 
@@ -120,7 +120,6 @@ const EventsScreen = () => {
         event={selectedEvent}
         visible={modalVisible}
         onClose={closeEventDetails}
-        useJhopeImage={true}
       />
 
       {/* Bottom Navigation */}
