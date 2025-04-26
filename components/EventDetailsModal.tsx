@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Modal,
   SafeAreaView,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Event } from "./EventCard";
@@ -27,8 +28,16 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
   onClose,
 }) => {
   const [transferModalVisible, setTransferModalVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   if (!event) return null;
+
+  const handleScroll = (event: any) => {
+    const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
+    const page = Math.round(contentOffset.x / layoutMeasurement.width);
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -49,65 +58,141 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
           </View>
 
           <View style={styles.contentContainer}>
-            {/* Ticket Card */}
-            <View style={styles.ticketCard}>
-              {/* Ticket Type */}
-              <View style={styles.ticketTypeContainer}>
-                <Text style={styles.ticketTypeText}>Standard Admission</Text>
-              </View>
+            <ScrollView
+              ref={scrollViewRef}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={handleScroll}
+              scrollEventThrottle={16}
+              style={styles.scrollView}
+            >
+              {/* First Ticket */}
+              <View style={styles.ticketContainer}>
+                {/* Ticket Card */}
+                <View style={styles.ticketCard}>
+                  {/* Ticket Type */}
+                  <View style={styles.ticketTypeContainer}>
+                    <Text style={styles.ticketTypeText}>Standard Admission</Text>
+                  </View>
 
-              {/* Seat Info */}
-              <View style={styles.seatInfoContainer}>
-                <View style={styles.seatColumn}>
-                  <Text style={styles.seatLabel}>SEC</Text>
-                  <Text style={styles.seatValue}>202</Text>
+                  {/* Seat Info */}
+                  <View style={styles.seatInfoContainer}>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>SEC</Text>
+                      <Text style={styles.seatValue}>202</Text>
+                    </View>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>ROW</Text>
+                      <Text style={styles.seatValue}>4</Text>
+                    </View>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>SEAT</Text>
+                      <Text style={styles.seatValue}>5</Text>
+                    </View>
+                  </View>
+
+                  {/* Event Image */}
+                  <Image 
+                    source={require('../assets/images/sabrina.jpg')}
+                    style={styles.eventImage}
+                    resizeMode="cover"
+                  />
+
+                  {/* Event Info */}
+                  <View style={styles.eventInfo}>
+                    <Text style={styles.eventTitle}>SABRINA CARPENTER: SHORT N' SWEET TOUR</Text>
+                    <Text style={styles.eventDateTime}>
+                      Fri • Oct 31 • 7:00pm • Madison Square Garden
+                    </Text>
+                  </View>
+
+                  {/* Location */}
+                  <View style={styles.locationContainer}>
+                    <Text style={styles.locationText}>UPPER BOWL</Text>
+                  </View>
+
+                  {/* View Ticket Button */}
+                  <TouchableOpacity style={styles.viewTicketButton}>
+                    <MaterialCommunityIcons name="qrcode" size={20} color="#FFFFFF" />
+                    <Text style={styles.viewTicketText}>View Ticket</Text>
+                  </TouchableOpacity>
+
+                  {/* Ticket Details */}
+                  <TouchableOpacity style={styles.ticketDetailsButton}>
+                    <Text style={styles.ticketDetailsText}>Ticket Details</Text>
+                  </TouchableOpacity>
                 </View>
-                <View style={styles.seatColumn}>
-                  <Text style={styles.seatLabel}>ROW</Text>
-                  <Text style={styles.seatValue}>4</Text>
-                </View>
-                <View style={styles.seatColumn}>
-                  <Text style={styles.seatLabel}>SEAT</Text>
-                  <Text style={styles.seatValue}>6</Text>
+
+                {/* Ticketmaster Logo */}
+                <View style={styles.logoContainer}>
+                  <Text style={styles.logoText}>ticketmaster®</Text>
                 </View>
               </View>
 
-              {/* Event Image */}
-              <Image 
-                source={require('../assets/images/sabrina.jpg')}
-                style={styles.eventImage}
-                resizeMode="cover"
-              />
+              {/* Second Ticket */}
+              <View style={styles.ticketContainer}>
+                {/* Ticket Card */}
+                <View style={styles.ticketCard}>
+                  {/* Ticket Type */}
+                  <View style={styles.ticketTypeContainer}>
+                    <Text style={styles.ticketTypeText}>Standard Admission</Text>
+                  </View>
 
-              {/* Event Info */}
-              <View style={styles.eventInfo}>
-                <Text style={styles.eventTitle}>SABRINA CARPENTER: SHORT N' SWEET TOUR</Text>
-                <Text style={styles.eventDateTime}>
-                  Fri • Oct 31 • 7:00pm • Madison Square Garden
-                </Text>
+                  {/* Seat Info */}
+                  <View style={styles.seatInfoContainer}>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>SEC</Text>
+                      <Text style={styles.seatValue}>202</Text>
+                    </View>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>ROW</Text>
+                      <Text style={styles.seatValue}>4</Text>
+                    </View>
+                    <View style={styles.seatColumn}>
+                      <Text style={styles.seatLabel}>SEAT</Text>
+                      <Text style={styles.seatValue}>6</Text>
+                    </View>
+                  </View>
+
+                  {/* Event Image */}
+                  <Image 
+                    source={require('../assets/images/sabrina.jpg')}
+                    style={styles.eventImage}
+                    resizeMode="cover"
+                  />
+
+                  {/* Event Info */}
+                  <View style={styles.eventInfo}>
+                    <Text style={styles.eventTitle}>SABRINA CARPENTER: SHORT N' SWEET TOUR</Text>
+                    <Text style={styles.eventDateTime}>
+                      Fri • Oct 31 • 7:00pm • Madison Square Garden
+                    </Text>
+                  </View>
+
+                  {/* Location */}
+                  <View style={styles.locationContainer}>
+                    <Text style={styles.locationText}>UPPER BOWL</Text>
+                  </View>
+
+                  {/* View Ticket Button */}
+                  <TouchableOpacity style={styles.viewTicketButton}>
+                    <MaterialCommunityIcons name="qrcode" size={20} color="#FFFFFF" />
+                    <Text style={styles.viewTicketText}>View Ticket</Text>
+                  </TouchableOpacity>
+
+                  {/* Ticket Details */}
+                  <TouchableOpacity style={styles.ticketDetailsButton}>
+                    <Text style={styles.ticketDetailsText}>Ticket Details</Text>
+                  </TouchableOpacity>
+                </View>
+
+                {/* Ticketmaster Logo */}
+                <View style={styles.logoContainer}>
+                  <Text style={styles.logoText}>ticketmaster®</Text>
+                </View>
               </View>
-
-              {/* Location */}
-              <View style={styles.locationContainer}>
-                <Text style={styles.locationText}>UPPER BOWL</Text>
-              </View>
-
-              {/* View Ticket Button */}
-              <TouchableOpacity style={styles.viewTicketButton}>
-                <MaterialCommunityIcons name="qrcode" size={20} color="#FFFFFF" />
-                <Text style={styles.viewTicketText}>View Ticket</Text>
-              </TouchableOpacity>
-
-              {/* Ticket Details */}
-              <TouchableOpacity style={styles.ticketDetailsButton}>
-                <Text style={styles.ticketDetailsText}>Ticket Details</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Ticketmaster Logo */}
-            <View style={styles.logoContainer}>
-              <Text style={styles.logoText}>ticketmaster®</Text>
-            </View>
+            </ScrollView>
 
             {/* Action Buttons */}
             <View style={styles.actionButtonsContainer}>
@@ -128,8 +213,8 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 
             {/* Navigation Dots */}
             <View style={styles.dotsContainer}>
-              <View style={[styles.dot, styles.activeDot]} />
-              <View style={styles.dot} />
+              <View style={[styles.dot, currentPage === 0 ? styles.activeDot : null]} />
+              <View style={[styles.dot, currentPage === 1 ? styles.activeDot : null]} />
             </View>
           </View>
         </SafeAreaView>
@@ -140,7 +225,7 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
         event={event}
         visible={transferModalVisible}
         onClose={() => setTransferModalVisible(false)}
-        selectedSeats={["7"]}
+        selectedSeats={[currentPage === 0 ? "6" : "7"]}
       />
     </>
   );
@@ -335,6 +420,14 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: "#FFFFFF",
+  },
+  scrollView: {
+    flex: 1,
+  },
+  ticketContainer: {
+    width: width,
+    height: height * 0.68,
+    alignItems: "center",
   },
 });
 
