@@ -80,15 +80,15 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                   <View style={styles.seatInfoContainer}>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>SEC</Text>
-                      <Text style={styles.seatValue}>202</Text>
+                      <Text style={styles.seatValue}>102</Text>
                     </View>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>ROW</Text>
-                      <Text style={styles.seatValue}>4</Text>
+                      <Text style={styles.seatValue}>15</Text>
                     </View>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>SEAT</Text>
-                      <Text style={styles.seatValue}>5</Text>
+                      <Text style={styles.seatValue}>4</Text>
                     </View>
                   </View>
 
@@ -109,7 +109,7 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 
                   {/* Location */}
                   <View style={styles.locationContainer}>
-                    <Text style={styles.locationText}>UPPER BOWL</Text>
+                    <Text style={styles.locationText}>LOWER BOWL</Text>
                   </View>
 
                   {/* View Ticket Button */}
@@ -143,15 +143,15 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                   <View style={styles.seatInfoContainer}>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>SEC</Text>
-                      <Text style={styles.seatValue}>202</Text>
+                      <Text style={styles.seatValue}>102</Text>
                     </View>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>ROW</Text>
-                      <Text style={styles.seatValue}>4</Text>
+                      <Text style={styles.seatValue}>16</Text>
                     </View>
                     <View style={styles.seatColumn}>
                       <Text style={styles.seatLabel}>SEAT</Text>
-                      <Text style={styles.seatValue}>6</Text>
+                      <Text style={styles.seatValue}>5</Text>
                     </View>
                   </View>
 

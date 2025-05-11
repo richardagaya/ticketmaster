@@ -10,21 +10,65 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Event } from "./EventCard";
+import TransferRecipientForm from "./TransferRecipientForm";
 
 interface TransferTicketsModalProps {
   event: Event | null;
   visible: boolean;
   onClose: () => void;
-  selectedSeats: string[];
+  selectedSeats?: string[];
 }
 
 const TransferTicketsModal: React.FC<TransferTicketsModalProps> = ({
   event,
   visible,
   onClose,
-  selectedSeats,
+  selectedSeats = ["4", "5"],
 }) => {
-  if (!event) return null;
+  const [showRecipientForm, setShowRecipientForm] = useState(false);
+  const defaultEvent = {
+    sec: "102",
+    row: "15",
+    ...event
+  };
+
+  const eventToUse = event || defaultEvent;
+
+  const handleTransferClick = () => {
+    setShowRecipientForm(true);
+  };
+
+  const handleRecipientSubmit = (data: { 
+    firstName: string; 
+    lastName: string;
+    emailOrPhone: string;
+    note: string;
+  }) => {
+    // Here you would typically handle the transfer submission
+    console.log('Transfer data:', {
+      ...data,
+      event: eventToUse,
+      seats: selectedSeats,
+    });
+    setShowRecipientForm(false);
+    onClose();
+  };
+
+  if (showRecipientForm) {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={visible}
+        onRequestClose={onClose}
+      >
+        <TransferRecipientForm
+          onClose={() => setShowRecipientForm(false)}
+          onSubmit={handleRecipientSubmit}
+        />
+      </Modal>
+    );
+  }
 
   return (
     <Modal
@@ -53,30 +97,29 @@ const TransferTicketsModal: React.FC<TransferTicketsModalProps> = ({
 
         {/* Ticket Section */}
         <View style={styles.ticketSection}>
-          <Text style={styles.sectionText}>Sec {event.sec}, Row {event.row}</Text>
-          <Text style={styles.ticketCount}>2 Tickets</Text>
+          <Text style={styles.sectionText}>Sec {eventToUse.sec}, Row {eventToUse.row}</Text>
+          <Text style={styles.ticketCount}>{selectedSeats.length} Tickets</Text>
         </View>
 
         {/* Ticket Selection */}
         <View style={styles.ticketSelectionContainer}>
-          <TouchableOpacity style={styles.ticketItem}>
-            <Text style={styles.seatText}>SEAT 12</Text>
-            <View style={styles.checkmark}>
-              <MaterialCommunityIcons name="check" size={20} color="#0066cc" />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.ticketItem}>
-            <Text style={styles.seatText}>SEAT 13</Text>
-            <View style={styles.checkmark}>
-              <MaterialCommunityIcons name="circle" size={20} color="#0066cc" />
-            </View>
-          </TouchableOpacity>
+          {selectedSeats.map((seat, index) => (
+            <TouchableOpacity key={index} style={styles.ticketItem}>
+              <Text style={styles.seatText}>SEAT {seat}</Text>
+              <View style={styles.checkmark}>
+                <MaterialCommunityIcons name="check" size={20} color="#0066cc" />
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
 
         {/* Bottom Section */}
         <View style={styles.bottomContainer}>
-          <Text style={styles.selectedText}>2 Selected</Text>
-          <TouchableOpacity style={styles.transferButton}>
+          <Text style={styles.selectedText}>{selectedSeats.length} Selected</Text>
+          <TouchableOpacity 
+            style={styles.transferButton}
+            onPress={handleTransferClick}
+          >
             <Text style={styles.transferButtonText}>TRANSFER TO {'>'}</Text>
           </TouchableOpacity>
         </View>

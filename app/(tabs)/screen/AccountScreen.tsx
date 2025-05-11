@@ -26,8 +26,8 @@ const AccountScreen = () => {
 
         {/* User Information Section */}
         <View className="p-6 bg-black">
-          <Text className="text-4xl text-white font-medium mb-2">Deja</Text>
-          <Text className="text-xl text-gray-400">dejpar52@gmail.com</Text>
+          <Text className="text-4xl text-white font-medium mb-2">Morton</Text>
+          <Text className="text-xl text-gray-400">Morton_zoey@icloud.com</Text>
         </View>
 
         {/* Notifications Section */}

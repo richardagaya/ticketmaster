@@ -4,42 +4,30 @@
     "slug": "ticketmaster",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/t-logo.png",
     "scheme": "ticketmaster",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/images/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#026CDF"
-    },
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ticketmaster.app"
+      "bundleIdentifier": "com.ticketmaster.app",
+      "icon": "./assets/images/t-logo.png"
     },
     "android": {
+      "package": "com.ticketmaster.app",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#026CDF"
+        "foregroundImage": "./assets/images/logo.png",
+        "backgroundColor": "#0066cc"
       },
-      "package": "com.yourcompany.ticketmaster"
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/t-logo.png"
     },
     "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#026CDF"
-        }
-      ]
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true

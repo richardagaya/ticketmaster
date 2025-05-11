@@ -302,7 +302,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.ticketmaster";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.app";
 				PRODUCT_NAME = "Ticketmaster";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -329,7 +329,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.ticketmaster";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.app";
 				PRODUCT_NAME = "Ticketmaster";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
